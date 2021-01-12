@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+    <div class="d-header">
+        Type data for send to Server
+    </div>
+    <input
+            type="button"
+            value="SEND POSTCARD"
+            @click="sendHelmet()"
+            class="bubu"
+
+    >
+    <table id="ftable">
+        <tr>
+            <td>name</td><td>class</td><td>material</td>
+        </tr>
+        <tr>
+            <td>
+                <input
+                        id="NAME"
+                        v-model="NAME"
+                        type="text"
+                        name="NAME"
+                >
+            </td>
+            <td>
+                <input
+                        id="CLASS"
+                        v-model="CLASS"
+                        type="text"
+                        name="class"
+                >
+            </td>
+            <td>
+                <input id="MATERIAL"
+                        v-model="MATERIAL"
+                        type="text"
+                        name="MATERIAL"
+                >
+            </td>
+        </tr>
+    </table>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#appwork',
+        data: {
+            name: null,
+            class: null,
+            material: null,
+            url: {
+                dotAdder: 'http://localhost:8080/helmet',
+            }
+        },
+        methods: {
+            sendHelmet() {
+                    axios.post('http://localhost:8080/helmet', {name: 'хуй', class: 'хуй', material: 'хуй'}).then(response => {
+                        console.log(response.data);
+                    });
+            },
+
+        }
+    });
+</script>
+</body>
+</html>
+
+$.post("http://localhost:8080/helmet", {name: 1, class: 1});
+$.ajax({
+type: 'POST',
+url: 'http://localhost:8080/helmet',
+data: {name: '1'},
+dataType: 'json'
+});
+
+axios.get('http://localhost:8080/helmet').then((response) => {
+this.dotsList = response.data;
+console.log(response.data);
+});

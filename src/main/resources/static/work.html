@@ -1,0 +1,382 @@
+<!--action="http://localhost:8080/message"
+method="get"-->
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Work Page</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/graphManager.js"></script>
+    <script src="js/mouseListener.js"></script>
+    <link rel="stylesheet" href="css/style-work.css">
+</head>
+<body onload="redraw()">
+<!--<body v-on:load = "redrawVue">-->
+<center>
+    <div id="appwork">
+    <form action="http://localhost:8080/logout">
+        <input class="bubu" type="submit" value="LOGOUT">
+    </form>
+
+        <!--<input type="button" value="Выйти" name="back" onclick="back()">-->
+    <form id="lal"
+          @submit="sendNewDotWithCheck()"
+          novalidate="true"
+    >
+
+        <div class="d-header">
+            Type data for send to Server
+        </div>
+        <input
+                type="button"
+                value="SEND POSTCARD"
+                @click="sendNewDotWithCheck()"
+                class="bubu"
+
+        ><br/><br/>
+
+        <p class="errorchik" v-if="errors.length">
+            <b>Check your error and correct them</b>
+        <p class="errorchik" v-for="error in errors">{{ error }}</p>
+        </p>
+
+        <table id="ftable">
+            <tr>
+                <td>X</td><td>Y</td><td>R</td>
+            </tr>
+            <tr>
+                <td>
+                    <input
+                            id="X"
+                            v-model="X"
+                            type="text"
+                            name="X"
+                            placeholder="X: -5..3"
+                            maxlength="5"
+                    >
+                </td>
+                <td>
+                    <input
+                            id="Y"
+                            v-model="Y"
+                            type="text"
+                            name="Y"
+                            placeholder="Y: -5..5"
+                            maxlength="5"
+                    >
+                </td>
+                <td>
+                    <input  v-on:keyup = "redrawVue"
+                            id="R"
+                            v-model="R"
+                            type="text"
+                            name="R"
+                            placeholder="R: 0..5"
+                            maxlength="5"
+                    >
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br/>
+    <br/>
+    <div>
+    <canvas height="360px" width="360px" id="zoneCanvas" title="График" @click="sendPlotDot()"/>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <table id="result-table">
+        <tr >
+            <td>X</td><td>Y</td><td>R</td><td>Entering</td>
+        </tr>
+        <tr v-for="dots in dotsList">
+            <td>{{ round(dots.x) }}</td>
+            <td>{{ round(dots.y) }}</td>
+            <td>{{ dots.r }}</td>
+            <td>{{ dots.result }}</td>
+        </tr>
+    </table>
+    </div>
+</center>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#appwork',
+        data: {
+            errors: [],
+            X: null,
+            Y: null,
+            R: null,
+            info: null,
+            dotsList: [],
+            url: {
+                dotAdder: 'http://localhost:8080/dots',
+                dotClear: '/clear'
+            }
+        },
+        methods: {
+            checkForm: function (e) {
+                this.errors = [];
+
+                if (!this.X){
+                    this.errors.push('Indicate parameter X')
+                } else if (this.validX(this.X)) {
+                    this.errors.push('Incorrect parameter X')
+                }
+
+                if (!this.Y){
+                    this.errors.push('Indicate parameter Y')
+                } else if (this.validY(this.Y)) {
+                    this.errors.push('Incorrect parameter Y')
+                }
+
+                if (!this.R){
+                    this.errors.push('Indicate parameter R')
+                } else if (this.validR(this.R)) {
+                    this.errors.push('Incorrect parameter данные R')
+                }
+
+                if (!this.errors.length) {
+                    return true;
+                }
+
+                e.preventDefault();
+            },
+            validX: function (X) {
+                if (X < -5 || X > 3 || !X.match(/[0-9]/))
+                return true;
+            },
+            validY: function (Y) {
+                if (Y < -5 || Y > 5 || !Y.match(/[0-9]/))
+                    return true;
+            },
+            validR: function (R) {
+                if (R < 0 || R > 5 || !R.match(/[0-9]/))
+                    return true;
+            },
+            sendNewDotWithCheck() {
+                if (!this.checkForm(document.getElementById("lal"))) {
+                    return false
+                } else
+                    axios.post(this.url.dotAdder, {x: this.X, y: this.Y, r: this.R}).then(response => {console.log(response.data);this.requestAllDots()});
+            },
+
+            sendNewDot() {
+                //this.checkForm();
+                axios.post(this.url.dotAdder, {x: this.X, y: this.Y, r: this.R}).then(response => {console.log(response.data);this.requestAllDots()});
+            },
+            requestAllDots() {
+                this.dotsList = [];
+                axios.get(this.url.dotAdder).then((response) => {
+                    this.dotsList = response.data;
+                    console.log(this.dotsList);
+                    this.info = response;
+                    for (let i = 0; i < this.dotsList.length; i++) {
+                        let xd = this.dotsList[i].x;
+                        let yd = this.dotsList[i].y;
+                        let colorn = "#AD2D2D";
+                        let colory = "green";
+                        if (check(xd, yd, this.R)) {
+                            this.drawPoint(xd, yd, colory)
+                        } else {
+                            this.drawPoint(xd, yd, colorn);
+                        }
+                    }
+                });
+
+            },
+            sendPlotDot(){
+                const plot_container = document.getElementById("zoneCanvas");
+                var plot_context = plot_container.getContext("2d");
+                var R = document.getElementById("R").value;
+
+                let x = (event.x - document.getElementById("zoneCanvas").getBoundingClientRect().left - 180) / (30);
+                let y = (event.y - document.getElementById("zoneCanvas").getBoundingClientRect().top - 180) / (-30);
+
+                this.X = this.round(x);
+                this.Y = this.round(y);
+                this.R = R;
+
+                this.sendNewDot();
+            },
+            round(num) {
+                return Math.floor(num * 100) / 100;
+            },
+             drawPoint(x,y,color) {
+                var plot_canvas = document.getElementById("zoneCanvas");
+                var plot_context = plot_canvas.getContext("2d");
+                plot_context.beginPath();
+                plot_context.fillStyle = color;
+                plot_context.arc(x*180/6 + 180, y*(-180)/6 + 180,3,0,2*3.14);
+                plot_context.fill();
+                plot_context.closePath();
+            },
+            redrawVue(){
+                var plot_canvas = document.getElementById("zoneCanvas");
+                var plot_context = plot_canvas.getContext("2d");
+                var R = document.getElementById("R").value;
+
+                if (R < 0) {
+                    R = 0;
+                }
+                if (R > 5) {
+                    R = 5
+                }
+
+                plot_context.clearRect(0, 0, plot_canvas.width, plot_canvas.height);
+                if(true) {
+                    plot_context.strokeStyle = "#000000";
+
+                    plot_context.fillStyle = "#000000";
+
+
+                    plot_context.beginPath();
+                    plot_context.arc(180, 180, R * 150 / 5, 0 , Math.PI / 2 );
+                    plot_context.lineTo(180, 180);
+                    plot_context.closePath();
+
+                    plot_context.rect(180-(R*0), 180-(R*15), R * 30, R * 15);
+                    plot_context.fillStyle = '#28c7ff';
+                    plot_context.fill();
+
+                    plot_context.beginPath();
+                    plot_context.moveTo(180, 180);
+                    plot_context.lineTo(180, 180+R*150/5);
+                    plot_context.lineTo(180 - R * 75 / 5, 180);
+                    plot_context.lineTo(180, 180);
+                    plot_context.closePath();
+                    plot_context.fillStyle = '#28c7ff';
+                    plot_context.fill();
+                }
+                plot_context.beginPath();
+//Ox
+                plot_context.fillStyle = 'black';
+                plot_context.moveTo(0, 180);
+                plot_context.lineTo(360, 180); //360, 180
+                plot_context.lineTo(350, 170); //290, 140
+                plot_context.moveTo(360, 180); //360, 180
+                plot_context.lineTo(350, 190); //290, 160
+                plot_context.moveTo(360, 180); //360, 180
+                //0x markers
+
+                plot_context.moveTo(330, 176); //
+                plot_context.lineTo(330, 184); //+5
+                plot_context.moveTo(300, 176); //
+                plot_context.lineTo(300, 184); //+4
+                plot_context.moveTo(270, 176); //
+                plot_context.lineTo(270, 184); //+3
+                plot_context.moveTo(240, 176); //
+                plot_context.lineTo(240, 184); //+2
+                plot_context.moveTo(210, 176); //
+                plot_context.lineTo(210, 184); //+1
+                plot_context.moveTo(150, 176); //
+                plot_context.lineTo(150, 184); //-1
+                plot_context.moveTo(120, 176); //
+                plot_context.lineTo(120, 184); //-2
+                plot_context.moveTo(90, 176); //
+                plot_context.lineTo(90, 184); //-3
+                plot_context.moveTo(60, 176); //
+                plot_context.lineTo(60, 184); //-4
+                plot_context.moveTo(30, 176); //
+                plot_context.lineTo(30, 184); //-5
+
+                //Oy
+                plot_context.moveTo(180, 0);
+                plot_context.lineTo(170, 10);
+                plot_context.moveTo(180, 0);
+                plot_context.lineTo(190, 10);
+                plot_context.moveTo(180, 0);
+                plot_context.lineTo(180, 360);
+                plot_context.moveTo(30, 180);
+
+                //0y markers
+
+                plot_context.moveTo(176, 330); //
+                plot_context.lineTo(184, 330); //+5
+                plot_context.moveTo(176, 300); //
+                plot_context.lineTo(184, 300); //+4
+                plot_context.moveTo(176, 270); //
+                plot_context.lineTo(184, 270); //+3
+                plot_context.moveTo(176, 240); //
+                plot_context.lineTo(184, 240); //+2
+                plot_context.moveTo(176, 210); //
+                plot_context.lineTo(184, 210); //+1
+                plot_context.moveTo(176, 150); //
+                plot_context.lineTo(184, 150); //-1
+                plot_context.moveTo(176, 120); //
+                plot_context.lineTo(184, 120); //-2
+                plot_context.moveTo(176, 90); //
+                plot_context.lineTo(184, 90); //-3
+                plot_context.moveTo(176, 60); //
+                plot_context.lineTo(184, 60); //-4
+                plot_context.moveTo(176, 30); //
+                plot_context.lineTo(184, 30); //-5
+
+                plot_context.closePath();
+                plot_context.stroke();
+                plot_context.fillStyle = "#000000";
+                plot_context.textAlign ="center";
+                plot_context.font = "18px Arial";
+
+                plot_context.fillText("x", 345, 165);
+                plot_context.fillText("y", 190, 15);
+                plot_context.font = "10px Arial";
+                plot_context.fillText("0", 170, 195);
+                //x
+                plot_context.fillText("-5", 30, 195);
+                plot_context.fillText("-4", 60, 195);
+                plot_context.fillText("-3", 90, 195);
+                plot_context.fillText("-2", 120, 195);
+                plot_context.fillText("-1", 150, 195);
+                plot_context.fillText("1", 210, 195);
+                plot_context.fillText("2", 240, 195);
+                plot_context.fillText("3", 270, 195);
+                plot_context.fillText("4", 300, 195);
+                plot_context.fillText("5", 330, 195);
+                //y
+                plot_context.fillText("5", 170, 35);
+                plot_context.fillText("4", 170, 65);
+                plot_context.fillText("3", 170, 95);
+                plot_context.fillText("2", 170, 125);
+                plot_context.fillText("1", 170, 155);
+                plot_context.fillText("-1", 170, 215);
+                plot_context.fillText("-2", 170, 245);
+                plot_context.fillText("-3", 170, 275);
+                plot_context.fillText("-4", 170, 305);
+                plot_context.fillText("-5", 170, 335);
+
+                this.requestAllDots();
+            }
+        },
+        created: function () {
+            this.requestAllDots();
+        }
+    });
+
+    function check(x, y, r) {
+        return checkCircle(x, y, r) || checkRectangle(x, y, r) || checkTriangle(x, y, r);
+
+    }
+
+    function checkRectangle(x, y, r) {
+        return (x >= 0) && (y >= 0) && (x <= r) && (y <= r/2);
+    }
+
+    function checkCircle(x, y, r) {
+        return (x >= 0) && (y <= 0) && (x*x + y*y <= r*r);
+    }
+
+    function checkTriangle(x, y, r) {
+        return (x <= 0) && (y <= 0) && (y + 2*x >= -r);
+    }
+
+    function back()
+    {
+        window.location = "login.html"
+    }
+</script>
+</body>
+</html>
