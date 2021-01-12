@@ -21,6 +21,7 @@ public class HelmetDTOService {
 
     public List<Helmet> loadUsersDots() {
         List<Helmet> fromDB = helmetRepository.findAll();
+        System.out.println("ХЕЛМЕТЫ");
         return fromDB;
     }
 

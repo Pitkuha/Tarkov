@@ -11,8 +11,8 @@ public class Trader {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "Call_Sign")
-    private String call_sign;
+    @Column(name = "callsign")
+    private String callsign;
     @Column(name = "Money")
     private double money;
 
@@ -25,8 +25,8 @@ public class Trader {
     @OneToMany(mappedBy = "fighter_id")
     private Set<Trust> trusts = new HashSet<>();
 
-    public Trader(String call_sign, double money) {
-        this.call_sign = call_sign;
+    public Trader(String callsign, double money) {
+        this.callsign = callsign;
         this.money = money;
     }
 
@@ -41,12 +41,12 @@ public class Trader {
         this.id = id;
     }
 
-    public String getCall_sign() {
-        return call_sign;
+    public String getCallsign() {
+        return callsign;
     }
 
-    public void setCall_sign(String call_sign) {
-        this.call_sign = call_sign;
+    public void setCallsign(String call_sign) {
+        this.callsign = call_sign;
     }
 
     public double getMoney() {

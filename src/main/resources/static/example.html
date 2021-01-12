@@ -69,6 +69,7 @@
                     });
             },
 
+
         }
     });
 </script>
@@ -85,5 +86,9 @@ dataType: 'json'
 
 axios.get('http://localhost:8080/helmet').then((response) => {
 this.dotsList = response.data;
+console.log(response.data);
+});
+
+axios.get('http://localhost:8080/TraderInventory', {callsign: 'хуй'}).then(response => {
 console.log(response.data);
 });

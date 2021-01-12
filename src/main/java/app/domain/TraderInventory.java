@@ -13,7 +13,7 @@ public class TraderInventory {
 //    @Id
     @ManyToOne
     @JoinColumn(name = "trader_id", referencedColumnName = "id")
-    private Trader trader_id;
+    private Trader traderId;
 
 //    @Id
     @ManyToOne
@@ -56,8 +56,8 @@ public class TraderInventory {
     @Column(name = "Price")
     private double price;
 
-    public TraderInventory(Trader trader_id, Weapon weapon_id, Ammunition ammunition_id, Magazin magazine_id, Medicine medicine_id, Provision provision_id, Armor armor_id, Helmet helmet_id, int amount, double price) {
-        this.trader_id = trader_id;
+    public TraderInventory(Trader TraderId, Weapon weapon_id, Ammunition ammunition_id, Magazin magazine_id, Medicine medicine_id, Provision provision_id, Armor armor_id, Helmet helmet_id, int amount, double price) {
+        this.traderId = TraderId;
         this.weapon_id = weapon_id;
         this.ammunition_id = ammunition_id;
         this.magazine_id = magazine_id;
@@ -72,12 +72,12 @@ public class TraderInventory {
     public TraderInventory() {
     }
 
-    public Trader getTrader_id() {
-        return trader_id;
+    public Trader getTraderId() {
+        return traderId;
     }
 
-    public void setTrader_id(Trader trader_id) {
-        this.trader_id = trader_id;
+    public void setTraderId(Trader trader_id) {
+        this.traderId = trader_id;
     }
 
     public Weapon getWeapon_id() {
