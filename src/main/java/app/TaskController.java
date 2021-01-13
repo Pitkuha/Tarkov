@@ -2,6 +2,7 @@ package app;
 
 import app.domain.Task;
 import app.service.TaskDTOService;
+import app.util.Tasks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class TaskController {
     private TaskDTOService taskDTOService;
 
     @GetMapping("/GetTasks")
-    public List<Task> getTasks(Principal principal){
+    public List<Tasks> getTasks(Principal principal){
         return taskDTOService.getAllAvailableTasks(principal.getName());
     }
 }
