@@ -56,4 +56,20 @@ public class Trader {
     public void setMoney(double money) {
         this.money = money;
     }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<Trust> getTrusts() {
+        return trusts;
+    }
+
+    public void setTrusts(Set<Trust> trusts) {
+        this.trusts = trusts;
+    }
 }

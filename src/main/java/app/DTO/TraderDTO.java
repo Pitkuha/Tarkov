@@ -1,9 +1,12 @@
 package app.DTO;
 
+import app.domain.Task;
 import app.domain.Trader;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TraderDTO {
     @NotNull
@@ -11,6 +14,7 @@ public class TraderDTO {
     @NotNull
     @Min(value = 0)
     private double money;
+    private Set<Task> tasks = new HashSet<>();
 
     public TraderDTO() {
     }
@@ -18,6 +22,7 @@ public class TraderDTO {
     public TraderDTO(Trader trader) {
         this.callsign = trader.getCallsign();
         this.money = trader.getMoney();
+        this.tasks = trader.getTasks();
     }
 
     public String getCallsign() {
