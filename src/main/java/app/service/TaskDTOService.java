@@ -1,6 +1,7 @@
 package app.service;
 
 import app.domain.Task;
+import app.domain.Trader;
 import app.domain.TraderTasks;
 import app.domain.Trust;
 import app.repository.*;
@@ -41,5 +42,12 @@ public class TaskDTOService {
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(644L)));
         List<Tasks> fromDB = traderTasksRepository.FindAllWithDescriptionQuery(name);
         return fromDB;
+    }
+
+    public String takeTask(TraderTasks request, String name){
+        Task taskId = traderTasksRepository.FindTask(request.getId());
+        System.out.println(taskId);
+        fighterRepository.updateCurrentTask(taskId, name);
+        return "Ok";
     }
 }

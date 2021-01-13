@@ -5,4 +5,5 @@ public interface Tasks {
     String getDescription();
     double getReward();
     String getCallSign();
+    long getId();
 }

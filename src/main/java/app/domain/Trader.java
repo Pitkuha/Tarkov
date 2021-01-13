@@ -22,7 +22,7 @@ public class Trader {
 //    inverseJoinColumns = {@JoinColumn(name = "Task_ID")})
 //    private Set<Task> tasks = new HashSet<>();
 
-    @OneToMany(mappedBy = "task_id")
+    @OneToMany(mappedBy = "task")
     private Set<TraderTasks> traderTasks = new HashSet<>();
 
     @OneToMany(mappedBy = "fighter_id")
