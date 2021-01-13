@@ -4,44 +4,48 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "FighterInventory")
-@IdClass(FighterInventoryPK.class)
+//@IdClass(FighterInventoryPK.class)
 public class FighterInventory {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+//    @Id
     @ManyToOne
     @JoinColumn(name = "fighter_id", referencedColumnName = "id")
-    private Fighter fighter_id;
+    private Fighter fighterId;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "weapon_id", referencedColumnName = "id")
     private Weapon weapon_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "ammunition_id", referencedColumnName = "id")
     private Ammunition ammunition_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "magazine_id", referencedColumnName = "id")
     private Magazin magazine_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
     private Medicine medicine_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "Provision_id", referencedColumnName = "id")
     private Provision provision_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "Armor_id", referencedColumnName = "id")
     private Armor armor_id;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "Helmet_id", referencedColumnName = "id")
     private Helmet helmet_id;
@@ -49,8 +53,8 @@ public class FighterInventory {
     @Column(name = "Amount")
     private int amount;
 
-    public FighterInventory(Fighter fighter_id, Weapon weapon_id, Ammunition ammunition_id, Magazin magazine_id, Medicine medicine_id, Provision provision_id, Armor armor_id, Helmet helmet_id, int amount) {
-        this.fighter_id = fighter_id;
+    public FighterInventory(Fighter fighterId, Weapon weapon_id, Ammunition ammunition_id, Magazin magazine_id, Medicine medicine_id, Provision provision_id, Armor armor_id, Helmet helmet_id, int amount) {
+        this.fighterId = fighterId;
         this.weapon_id = weapon_id;
         this.ammunition_id = ammunition_id;
         this.magazine_id = magazine_id;
@@ -64,12 +68,12 @@ public class FighterInventory {
     public FighterInventory() {
     }
 
-    public Fighter getFighter_id() {
-        return fighter_id;
+    public Fighter getFighterId() {
+        return fighterId;
     }
 
-    public void setFighter_id(Fighter fighter_id) {
-        this.fighter_id = fighter_id;
+    public void setFighterId(Fighter fighter_id) {
+        this.fighterId = fighter_id;
     }
 
     public Weapon getWeapon_id() {
@@ -134,5 +138,13 @@ public class FighterInventory {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

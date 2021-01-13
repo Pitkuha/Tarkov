@@ -1,6 +1,7 @@
 package app;
 
 import app.domain.UserDTO;
+import app.service.FighterDTOService;
 import app.service.UserDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,9 @@ public class RegController {
     @Autowired
     private UserDTOService userDTOService;
 
+    @Autowired
+    private FighterDTOService fighterDTOService;
+
     @PostMapping("/registration")
     public void addUser(UserDTO user, HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (!userDTOService.isLoginVacant(user.getUsername())) {
@@ -21,6 +25,7 @@ public class RegController {
             response.sendRedirect("/registration.html?error");
         } else {
             userDTOService.register(user);
+            fighterDTOService.addFighter(user);
             request.login(user.getUsername(), user.getPassword());
             //response.sendRedirect("/work.html");
             response.sendRedirect("/AfterAvtor.html");
