@@ -16,11 +16,14 @@ public class Trader {
     @Column(name = "Money")
     private double money;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "TraderTask",
-    joinColumns = {@JoinColumn(name = "Trader_ID")},
-    inverseJoinColumns = {@JoinColumn(name = "Task_ID")})
-    private Set<Task> tasks = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "TraderTask",
+//    joinColumns = {@JoinColumn(name = "Trader_ID")},
+//    inverseJoinColumns = {@JoinColumn(name = "Task_ID")})
+//    private Set<Task> tasks = new HashSet<>();
+
+    @OneToMany(mappedBy = "task")
+    private Set<TraderTasks> traderTasks = new HashSet<>();
 
     @OneToMany(mappedBy = "fighter_id")
     private Set<Trust> trusts = new HashSet<>();
@@ -57,12 +60,12 @@ public class Trader {
         this.money = money;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<TraderTasks> getTraderTasks() {
+        return traderTasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setTraderTasks(Set<TraderTasks> tasks) {
+        this.traderTasks = tasks;
     }
 
     public Set<Trust> getTrusts() {

@@ -1,6 +1,8 @@
 package app.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Tasks")
@@ -17,6 +19,9 @@ public class Task {
     private String description;
     @Column(name = "Trust_Level")
     private int trust_level;
+
+    @OneToMany(mappedBy = "trader_id")
+    private Set<TraderTasks> traderstasks = new HashSet<>();
 
     public Task(String name, double reward, String description, int trust_level) {
         this.name = name;
@@ -66,5 +71,13 @@ public class Task {
 
     public void setTrust_level(int trust_level) {
         this.trust_level = trust_level;
+    }
+
+    public Set<TraderTasks> getTradersTasks() {
+        return traderstasks;
+    }
+
+    public void setTradersTasks(Set<TraderTasks> traders) {
+        this.traderstasks = traders;
     }
 }
