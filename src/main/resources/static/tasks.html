@@ -11,6 +11,15 @@
 </head>
 <body>
 <div id="app" class="bubu">
+    <p class="task">Текущее задание:<br>
+        Название: {{currentTask.name}} <br>
+        Описание: {{currentTask.description}} <br>
+        Награда: {{currentTask.reward}} <br>
+        <img v-if="currentTask.name=='Дефицит'" src="picture/deficit.png">
+        <img v-if="currentTask.name=='Проба пера'" src="picture/proba_pera.png">
+        <br>
+        <button v-on:click = "taskCompleted" class="choose">Выполнено</button>
+    </p>
     <ul class="square">
         <li class="task" v-for="task in tasks">
             Название: {{task.name}} <br>
@@ -25,7 +34,8 @@
             <input v-if="task.callSign=='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC" name="mechanic" onclick="">
             <input v-if="task.callSign=='Barah'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara" onclick="">
             <input v-if="task.callSign=='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="">
-            <button class="choose">Выбрать</button>
+            <br>
+            <button v-on:click = "takeTask(task.id)" class="choose">Выбрать</button>
         </li>
 
     </ul>
@@ -35,12 +45,32 @@
     new Vue({
         el: '#app',
         data:{
+            currentTask:'',
         tasks:''
+        },
+        methods:{
+            taskCompleted: function () {
+                axios.post('http://localhost:8080/passTask').then(response => {
+                    console.log(response.data);
+                });
+                this.currentTask = '';
+            },
+            takeTask: function (task_id) {
+                axios.post('http://localhost:8080/takeTask', {id: task_id}).then(response => {
+                    console.log(response.data);
+                });
+                axios
+                    .get('http://localhost:8080/getCurrentTask')
+                    .then(response => (this.currentTask = response.data));
+            }
         },
         mounted() {
             axios
                 .get('http://localhost:8080/GetTasks')
                 .then(response => (this.tasks = response.data));
+            axios
+                .get('http://localhost:8080/getCurrentTask')
+                .then(response => (this.currentTask = response.data));
         }
     });
 </script>

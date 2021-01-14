@@ -2,6 +2,7 @@ body {
     background: url("../picture/maxresdefault.jpg");
     text-align: center;
     background-size: cover;
+    opacity: 50%;
 }
 .choose {
     background-color: transparent;
