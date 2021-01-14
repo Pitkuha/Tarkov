@@ -5,8 +5,10 @@ import app.domain.TraderTasks;
 import app.domain.TraderTasksPK;
 import app.util.Tasks;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,4 +18,9 @@ public interface TraderTasksRepository extends JpaRepository<TraderTasks, Trader
 
     @Query("select tt.task from TraderTasks tt where tt.id  = :traderTaskId")
     Task FindTask(@Param("traderTaskId") long traderTaskId);
+
+    @Transactional
+    @Modifying
+    @Query("delete from TraderTasks tt where tt.id = :traderTaskId")
+    void deleteTraderTasksById(@Param("traderTaskId") long traderTaskId);
 }
