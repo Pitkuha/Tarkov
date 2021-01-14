@@ -33,4 +33,6 @@ public class InventoryController {
     public List<FighterInventory> getFighterInventory(Principal principal){
         return fighterDTOService.getAllInventory(principal.getName());
     }
+
+    
 }

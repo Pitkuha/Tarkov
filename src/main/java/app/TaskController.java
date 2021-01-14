@@ -43,8 +43,8 @@ public class TaskController {
     }
 
     @PostMapping(value = "/passTask", produces = "application/json")
-    public String passTask(@Valid @RequestBody TraderTasks request,Principal principal){
-        taskDTOService.passTask(principal.getName(), request);
+    public String passTask(Principal principal){
+        taskDTOService.passTask(principal.getName());
         return "ok";
     }
 }

@@ -55,12 +55,11 @@ public class TaskDTOService {
         return fighterRepository.findByCallsign(name).get(0).getTask() == null;
     }
 
-    public String passTask(String name, TraderTasks request){
+    public String passTask(String name){
         Task task = fighterRepository.findTask(name);
         double reward = task.getReward();
         fighterRepository.updateMoney(name,reward);
-        traderTasksRepository.deleteTraderTasksById(request.getId());
-        fighterRepository.updateTaskNull(traderTasksRepository.findTask(request.getId()).getId());
+        fighterRepository.updateTaskNull(name);
         return "passTask ok";
     }
 

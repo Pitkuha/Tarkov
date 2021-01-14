@@ -29,7 +29,7 @@ public interface FighterRepository extends JpaRepository<Fighter, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Fighter f set f.task = null where f.task = :taskId")
-    void updateTaskNull (@Param("taskId") long taskId);
+    @Query("update Fighter f set f.task = null where f.callsign = :name")
+    void updateTaskNull (@Param("name")String name);
 
 }
