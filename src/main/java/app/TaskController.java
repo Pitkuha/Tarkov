@@ -30,4 +30,10 @@ public class TaskController {
         taskDTOService.takeTask(request,principal.getName());
         return "ok";
     }
+
+    @PostMapping(value = "/passTask", produces = "application/json")
+    public String passTask(Principal principal){
+        taskDTOService.passTask(principal.getName());
+        return "ok";
+    }
 }

@@ -48,6 +48,14 @@ public class TaskDTOService {
         Task taskId = traderTasksRepository.FindTask(request.getId());
         System.out.println(taskId);
         fighterRepository.updateCurrentTask(taskId, name);
+        traderTasksRepository.deleteTraderTasksById(request.getId());
         return "Ok";
+    }
+
+    public String passTask(String name){
+        Task task = fighterRepository.findTask(name);
+        double reward = task.getReward();
+        fighterRepository.updateMoney(name,reward);
+        return "passTask ok";
     }
 }
