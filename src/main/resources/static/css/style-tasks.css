@@ -83,3 +83,41 @@ body {
     border: 2px solid #389F70;
     background: #98EABA;
 }
+
+#prapor {
+    background-image: url("../picture/prapor.png");
+}
+#terapevt {
+    background-image: url("../picture/terapevt.png");
+}
+#skupshik {
+    background-image: url("../picture/skupshik.png");
+}
+#lizhnik {
+    background-image: url("../picture/lizhnik.png");
+}
+#mirotvorec {
+    background-image: url("../picture/mirotvorec.png");
+}
+#mechanic {
+    background-image: url("../picture/mechanic.png");
+}
+#barah {
+    background-image: url("../picture/barac.png");
+}
+#eger {
+    background-image: url("../picture/eger.png");
+}
+.but {
+    width: 200px;
+    height: 200px;
+    font-size: 25px;
+    font-family: "Trebuchet MS";
+    padding: 160px 10px 10px;
+    color: white;
+    transition: 0.5s;
+    border: none;
+}
+.but:hover {
+    opacity: .65;
+}

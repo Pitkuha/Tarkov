@@ -17,6 +17,14 @@
             Описание: {{task.description}} <br>
             Награда: {{task.reward}} <br>
             Владелец: {{task.callSign}} <br>
+            <input v-if="task.callSign=='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap" onclick="">
+            <input v-if="task.callSign=='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera" onclick="">
+            <input v-if="task.callSign=='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup" onclick="">
+            <input v-if="task.callSign=='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh" onclick="">
+            <input v-if="task.callSign=='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC" name="miro" onclick="">
+            <input v-if="task.callSign=='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC" name="mechanic" onclick="">
+            <input v-if="task.callSign=='Barah'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara" onclick="">
+            <input v-if="task.callSign=='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="">
             <button class="choose">Выбрать</button>
         </li>
 
