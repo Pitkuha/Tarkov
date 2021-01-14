@@ -2,7 +2,10 @@ package app.DTO;
 
 import app.domain.Task;
 import app.domain.Trader;
+import app.domain.TraderTasks;
+import app.domain.Trust;
 
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -14,7 +17,8 @@ public class TraderDTO {
     @NotNull
     @Min(value = 0)
     private double money;
-    private Set<Task> tasks = new HashSet<>();
+    private Set<TraderTasks> traderTasks = new HashSet<>();
+    private Set<Trust> trusts = new HashSet<>();
 
     public TraderDTO() {
     }
@@ -22,7 +26,8 @@ public class TraderDTO {
     public TraderDTO(Trader trader) {
         this.callsign = trader.getCallsign();
         this.money = trader.getMoney();
-        this.tasks = trader.getTasks();
+        this.traderTasks = trader.getTraderTasks();
+        this.trusts= trader.getTrusts();
     }
 
     public String getCallsign() {
@@ -39,5 +44,21 @@ public class TraderDTO {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public Set<TraderTasks> getTraderTasks() {
+        return traderTasks;
+    }
+
+    public void setTraderTasks(Set<TraderTasks> traderTasks) {
+        this.traderTasks = traderTasks;
+    }
+
+    public Set<Trust> getTrusts() {
+        return trusts;
+    }
+
+    public void setTrusts(Set<Trust> trusts) {
+        this.trusts = trusts;
     }
 }

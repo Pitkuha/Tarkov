@@ -29,17 +29,19 @@ public class TaskDTOService {
     }
 
     public List<Tasks> getAllAvailableTasks(String name){
+//        traderRepository.save(new Trader("Prapor", 100000));
+//        traderRepository.save(new Trader("Terapevt", 200000));
 //        taskRepository.save(new Task("Убить Киллу", 100000, "Убить Киллу мазафака", 1));
 //        taskRepository.save(new Task("Убить Билла", 120000, "Убить Билла мазафака", 2));
 //        taskRepository.save(new Task("Убить Клима", 120000000, "Убить Клима мазафака", 4));
-//        trustRepository.save(new Trust(fighterRepository.getOne(636L),traderRepository.getOne(624L),1));
-//        trustRepository.save(new Trust(fighterRepository.getOne(636L),traderRepository.getOne(625L),2));
-//        trustRepository.save(new Trust(fighterRepository.getOne(641L),traderRepository.getOne(624L),3));
-//        trustRepository.save(new Trust(fighterRepository.getOne(641L),traderRepository.getOne(625L),4));
-//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(624L),taskRepository.getOne(642L)));
-//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(624L),taskRepository.getOne(643L)));
-//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(643L)));
-//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(644L)));
+//        trustRepository.save(new Trust(fighterRepository.getOne(22L),traderRepository.getOne(23L),1));
+//        trustRepository.save(new Trust(fighterRepository.getOne(22L),traderRepository.getOne(24L),2));
+//        trustRepository.save(new Trust(fighterRepository.getOne(29L),traderRepository.getOne(23L),3));
+//        trustRepository.save(new Trust(fighterRepository.getOne(29L),traderRepository.getOne(24L),4));
+//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(23L),taskRepository.getOne(25L)));
+//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(23L),taskRepository.getOne(26L)));
+//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(24L),taskRepository.getOne(26L)));
+//        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(24L),taskRepository.getOne(27L)));
         List<Tasks> fromDB = traderTasksRepository.FindAllWithDescriptionQuery(name);
         return fromDB;
     }
