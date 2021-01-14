@@ -1,9 +1,7 @@
 package app.service;
 
 import app.domain.Task;
-import app.domain.Trader;
 import app.domain.TraderTasks;
-import app.domain.Trust;
 import app.repository.*;
 import app.util.Tasks;
 import org.springframework.stereotype.Component;
@@ -45,17 +43,22 @@ public class TaskDTOService {
     }
 
     public String takeTask(TraderTasks request, String name){
-        Task taskId = traderTasksRepository.FindTask(request.getId());
-        System.out.println(taskId);
+        Task taskId = traderTasksRepository.findTask(request.getId());
         fighterRepository.updateCurrentTask(taskId, name);
         traderTasksRepository.deleteTraderTasksById(request.getId());
         return "Ok";
     }
 
-    public String passTask(String name){
+    public boolean checkCurrentTask(String name){
+        return fighterRepository.findByCallsign(name).get(0).getTask() == null;
+    }
+
+    public String passTask(String name, TraderTasks request){
         Task task = fighterRepository.findTask(name);
         double reward = task.getReward();
         fighterRepository.updateMoney(name,reward);
+        traderTasksRepository.deleteTraderTasksById(request.getId());
+        fighterRepository.updateTaskNull(traderTasksRepository.findTask(request.getId()).getId());
         return "passTask ok";
     }
 

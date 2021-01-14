@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -31,14 +33,18 @@ public class TaskController {
     }
 
     @PostMapping(value = "/takeTask", produces = "application/json")
-    public String takeTask(@Valid @RequestBody TraderTasks request, Principal principal){
-        taskDTOService.takeTask(request,principal.getName());
+    public String takeTask(@Valid @RequestBody TraderTasks request, HttpServletResponse response, Principal principal) throws IOException {
+        if (taskDTOService.checkCurrentTask(principal.getName())) {
+            taskDTOService.takeTask(request, principal.getName());
+        } else {
+            response.sendError(418);
+        }
         return "ok";
     }
 
     @PostMapping(value = "/passTask", produces = "application/json")
-    public String passTask(Principal principal){
-        taskDTOService.passTask(principal.getName());
+    public String passTask(@Valid @RequestBody TraderTasks request,Principal principal){
+        taskDTOService.passTask(principal.getName(), request);
         return "ok";
     }
 }

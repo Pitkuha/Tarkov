@@ -17,10 +17,11 @@ public interface TraderTasksRepository extends JpaRepository<TraderTasks, Trader
     List<Tasks> FindAllWithDescriptionQuery(String name);
 
     @Query("select tt.task from TraderTasks tt where tt.id  = :traderTaskId")
-    Task FindTask(@Param("traderTaskId") long traderTaskId);
+    Task findTask(@Param("traderTaskId") long traderTaskId);
 
     @Transactional
     @Modifying
     @Query("delete from TraderTasks tt where tt.id = :traderTaskId")
     void deleteTraderTasksById(@Param("traderTaskId") long traderTaskId);
+
 }
