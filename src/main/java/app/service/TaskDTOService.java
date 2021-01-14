@@ -60,4 +60,8 @@ public class TaskDTOService {
         fighterRepository.updateMoney(name,reward);
         return "passTask ok";
     }
+
+    public Task getCurrentTask(String name){
+        return fighterRepository.findTask(name);
+    }
 }
