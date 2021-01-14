@@ -25,6 +25,11 @@ public class TaskController {
         return taskDTOService.getAllAvailableTasks(principal.getName());
     }
 
+    @GetMapping("/getCurrentTask")
+    public Task getCurrentTask(Principal principal){
+        return taskDTOService.getCurrentTask(principal.getName());
+    }
+
     @PostMapping(value = "/takeTask", produces = "application/json")
     public String takeTask(@Valid @RequestBody TraderTasks request, Principal principal){
         taskDTOService.takeTask(request,principal.getName());
