@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style-tasks.css">
+    <title>Tasks</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app" class="bubu">
+    <ul>
+        <li v-for="task in tasks">
+            {{task.name}}
+            {{task.description}}
+            {{task.reward}}
+            {{task.callSign}}
+        </li>
+
+    </ul>
+</div>
+<script type="application/javascript">
+    new Vue({
+        el: '#app',
+        data:{
+        tasks:''
+        },
+        mounted() {
+            axios
+                .get('http://localhost:8080/GetTasks')
+                .then(response => (this.tasks = response.data));
+        }
+    });
+</script>
+</body>
+</html>

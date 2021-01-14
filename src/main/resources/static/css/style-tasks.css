@@ -1,0 +1,14 @@
+body {
+    background: url("../picture/maxresdefault.jpg");
+    text-align: center;
+    background-size: cover;
+}
+.bubu{
+    background-color: transparent;
+    color: white;
+    width: 15%;
+    transition: 0.5s;
+    border: none;
+    font-family: "Trebuchet MS";
+    font-size: 30px;
+}
