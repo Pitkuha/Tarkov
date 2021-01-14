@@ -11,15 +11,17 @@
 </head>
 <body>
 <div id="app" class="bubu">
-    <ul>
-        <li v-for="task in tasks">
-            {{task.name}}
-            {{task.description}}
-            {{task.reward}}
-            {{task.callSign}}
+    <ul class="square">
+        <li class="task" v-for="task in tasks">
+            Название: {{task.name}} <br>
+            Описание: {{task.description}} <br>
+            Награда: {{task.reward}} <br>
+            Владелец: {{task.callSign}} <br>
+            <button class="choose">Выбрать</button>
         </li>
 
     </ul>
+    <input type="button" id="back" value="BACK" name="back" onclick="back()">
 </div>
 <script type="application/javascript">
     new Vue({
@@ -33,6 +35,12 @@
                 .then(response => (this.tasks = response.data));
         }
     });
+</script>
+<script>
+    function back()
+    {
+        window.location = "AfterAvtor.html"
+    }
 </script>
 </body>
 </html>
