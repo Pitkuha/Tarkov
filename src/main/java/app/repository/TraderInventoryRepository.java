@@ -17,5 +17,11 @@ public interface TraderInventoryRepository extends JpaRepository<TraderInventory
     @Transactional
     @Modifying
     @Query("update TraderInventory ti set ti.amount = ti.amount - :amount where ti.id = :id")
-    void updateInventory(@Param("id") long id, @Param("amount") int amount);
+    void updateInventoryTrader(@Param("id") long id, @Param("amount") int amount);
+
+    @Query("select t.traderId.id from TraderInventory t where t.id = :id")
+    long findByTraderInvId(@Param("id") long traderInvId);
+
+    @Query(value = "select * from Trader_Inventory t where t.id = ?", nativeQuery = true)
+    TraderInventory findTI(long idTraderInventory);
 }

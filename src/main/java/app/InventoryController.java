@@ -33,6 +33,7 @@ public class InventoryController {
 
     @PostMapping(value = "/buy", produces = "application/json")
     public String buyItems(@Valid @RequestBody TraderInventory request, Principal principal){
-        return null;
+        traderDTOService.buyItem(principal.getName(),request);
+        return "buy ok!";
     }
 }

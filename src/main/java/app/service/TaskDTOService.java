@@ -1,5 +1,6 @@
 package app.service;
 
+import app.domain.FighterInventory;
 import app.domain.Task;
 import app.domain.TraderInventory;
 import app.domain.TraderTasks;
@@ -17,12 +18,16 @@ public class TaskDTOService {
     private final TraderTasksRepository traderTasksRepository;
     private final TraderInventoryRepository traderInventoryRepository;
     private final TraderRepository traderRepository;
+    private final FighterInventoryRepository fighterInventoryRepository;
+    private final HelmetRepository helmetRepository;
 
-    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, TraderRepository traderRepository1) {
+    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, TraderRepository traderRepository1, FighterInventoryRepository fighterInventoryRepository, HelmetRepository helmetRepository) {
         this.fighterRepository = fighterRepository;
         this.traderTasksRepository = traderTasksRepository;
         this.traderInventoryRepository = traderInventoryRepository;
         this.traderRepository = traderRepository1;
+        this.fighterInventoryRepository = fighterInventoryRepository;
+        this.helmetRepository = helmetRepository;
     }
 
     public List<Tasks> getAllAvailableTasks(String name){
@@ -57,30 +62,12 @@ public class TaskDTOService {
         double reward = task.getReward();
         fighterRepository.updateMoney(name,reward);
         fighterRepository.updateTaskNull(name);
-        return "passTask ok";
+        return "passTask() ok!";
     }
 
     public Task getCurrentTask(String name){
+        //Добавить товар в инвентарь торговца
+        //traderInventoryRepository.save(new TraderInventory(traderRepository.findById(624L).get(),null,null,null,null,null,null,helmetRepository.findById(604L).get(),10000,5000));
         return fighterRepository.findTask(name);
-    }
-
-    public String buyItem(String name, TraderInventory traderInventory){
-        traderInventoryRepository.updateInventory(traderInventory.getId(),traderInventory.getAmount());
-        traderRepository.updateTraderMoney(traderInventory.getId(),traderInventory.getPrice() * traderInventory.getAmount());
-        fighterRepository.updateMoneyAfterBuying(name,traderInventory.getPrice() * traderInventory.getAmount());
-        if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0).getId()
-                ,traderInventory.getAmmunition_id().getId()
-                ,traderInventory.getArmor_id().getId()
-                ,traderInventory.getHelmet_id().getId()
-                ,traderInventory.getMagazine_id().getId()
-                ,traderInventory.getMedicine_id().getId()
-                ,traderInventory.getProvision_id().getId()
-                ,traderInventory.getWeapon_id().getId()) == 0){
-
-        } else {
-
-        }
-
-        return null;
     }
 }

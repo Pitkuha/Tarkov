@@ -159,4 +159,21 @@ public class TraderInventory {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "TraderInventory{" +
+                "id=" + id +
+                ", traderId=" + traderId +
+                ", weapon_id=" + weapon_id +
+                ", ammunition_id=" + ammunition_id +
+                ", magazine_id=" + magazine_id +
+                ", medicine_id=" + medicine_id +
+                ", provision_id=" + provision_id +
+                ", armor_id=" + armor_id +
+                ", helmet_id=" + helmet_id +
+                ", amount=" + amount +
+                ", price=" + price +
+                '}';
+    }
 }
