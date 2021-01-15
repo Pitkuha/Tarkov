@@ -8,6 +8,8 @@ import app.repository.TraderInventoryRepository;
 import app.repository.TraderRepository;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -24,8 +26,14 @@ public class TraderDTOService {
         this.fighterInventoryRepository = fighterInventoryRepository;
     }
 
-    public List<TraderInventory> getAllInventory(String name){
-        List<TraderInventory>  fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign(name).get(0));
+    public List<TraderInventory> getAllInventory(String name, HttpServletResponse response) throws IOException {
+        List<TraderInventory> fromDB;
+        try {
+            fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign(name).get(0));
+        }catch (IndexOutOfBoundsException e){
+            fromDB = null;
+            response.sendError(418);
+        }
         return fromDB;
     }
 
@@ -33,14 +41,6 @@ public class TraderDTOService {
         traderInventoryRepository.updateInventoryTrader(traderInventory.getId(),traderInventory.getAmount());
         traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(traderInventory.getId()),traderInventory.getPrice() * traderInventory.getAmount());
         fighterRepository.updateMoneyAfterBuying(name,traderInventory.getPrice() * traderInventory.getAmount());
-        System.out.println("хуй = " + fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getAmmunition_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getArmor_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getHelmet_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getMagazine_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getMedicine_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getProvision_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getWeapon_id()));
         if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
                 ,traderInventoryRepository.findTI(traderInventory.getId()).getAmmunition_id()
                 ,traderInventoryRepository.findTI(traderInventory.getId()).getArmor_id()

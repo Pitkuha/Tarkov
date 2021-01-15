@@ -8,7 +8,9 @@ import app.service.TraderDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -22,8 +24,8 @@ public class InventoryController {
     private FighterDTOService fighterDTOService;
 
     @GetMapping("/TraderInventory")
-    public List<TraderInventory> getTraderInventory(@RequestParam(name = "callsign", required = true) String callsign){
-        return traderDTOService.getAllInventory(callsign);
+    public List<TraderInventory> getTraderInventory(@RequestParam(name = "callsign", required = true) String callsign, HttpServletResponse response) throws IOException {
+        return traderDTOService.getAllInventory(callsign, response);
     }
 
     @GetMapping("/FighterInventory")
