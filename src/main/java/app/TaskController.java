@@ -43,8 +43,8 @@ public class TaskController {
     }
 
     @PostMapping(value = "/passTask", produces = "application/json")
-    public String passTask(Principal principal){
-        taskDTOService.passTask(principal.getName());
+    public String passTask(Principal principal, HttpServletResponse response) throws IOException {
+        taskDTOService.passTask(principal.getName(), response);
         return "ok";
     }
 }

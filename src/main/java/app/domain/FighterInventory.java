@@ -1,5 +1,7 @@
 package app.domain;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,36 +19,43 @@ public class FighterInventory {
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "weapon_id", referencedColumnName = "id")
     private Weapon weapon_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "ammunition_id", referencedColumnName = "id")
     private Ammunition ammunition_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "magazine_id", referencedColumnName = "id")
     private Magazin magazine_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "Medicine_id", referencedColumnName = "id")
     private Medicine medicine_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "Provision_id", referencedColumnName = "id")
     private Provision provision_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "Armor_id", referencedColumnName = "id")
     private Armor armor_id;
 
 //    @Id
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "Helmet_id", referencedColumnName = "id")
     private Helmet helmet_id;
 
