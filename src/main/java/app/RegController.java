@@ -1,14 +1,17 @@
 package app;
 
+import app.domain.Fighter;
 import app.domain.UserDTO;
 import app.service.FighterDTOService;
 import app.service.UserDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 @RestController
 public class RegController {
@@ -17,6 +20,11 @@ public class RegController {
 
     @Autowired
     private FighterDTOService fighterDTOService;
+
+    @GetMapping("/UserInfo")
+    public Fighter getFighter(Principal principal){
+        return userDTOService.getFighter(principal.getName());
+    }
 
     @PostMapping("/registration")
     public void addUser(UserDTO user, HttpServletRequest request, HttpServletResponse response) throws Exception {

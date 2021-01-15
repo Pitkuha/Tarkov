@@ -75,3 +75,9 @@ body {
     color: black;
     background-color: #928f83;
 }
+#UserInfo{
+    color: white;
+    font-family: "Trebuchet MS";
+    font-size: 20px;
+    background-color: rgba(46, 49, 49, .5);
+}

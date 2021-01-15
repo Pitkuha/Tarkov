@@ -11,12 +11,18 @@
 </head>
 <body>
 <div id ="app">
+    <div id="UserInfo">
+        <p>{{userInfo.callsign}}<br>
+            {{userInfo.money}}<br></p>
+    </div>
     <div id="items">
+
     <ol class="square">
         <li class="item" v-for="item in items">
             <p v-if="item.medicine_id">
                 Название: {{item.medicine_id.name}} <br>
                 Запас здоровья: {{item.medicine_id.healt_resource}} <br>
+
             </p>
             <p v-if="item.weapon_id">
                 Название: {{item.weapon_id.name}} <br>
@@ -61,14 +67,25 @@
     new Vue({
         el: '#app',
         data:{
-            items : '',
-            nickname:'',
-            money:''
+            userInfo:'',
+            items:''
+        },
+        methods:{
+            getFighterInventory : function () {
+                axios
+                    .get('http://localhost:8080/FighterInventory')
+                    .then(response => (this.items = response.data));
+            },
+            getUserInfo : function () {
+                axios
+                    .get('http://localhost:8080/UserInfo')
+                    .then(response => (
+                        this.userInfo = response.data));
+            }
         },
         mounted() {
-            axios
-                .get('http://localhost:8080/FighterInventory')
-                .then(response => (this.items = response.data));
+            this.getUserInfo();
+            this.getFighterInventory();
         }
     });
 </script>
