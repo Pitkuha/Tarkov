@@ -55,6 +55,7 @@
         </li>
     </ol>
     </div>
+    <input type="button" id="back" value="BACK" name="back" onclick="back()">
 </div>
 <script type="application/javascript">
     new Vue({
@@ -68,6 +69,11 @@
                 .then(response => (this.items = response.data));
         }
     });
+</script>
+<script>
+    function back() {
+        window.location = "AfterAvtor.html"
+    }
 </script>
 </body>
 </html>

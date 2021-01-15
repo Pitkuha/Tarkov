@@ -62,3 +62,16 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+#back {
+    background-color: transparent;
+    color: white;
+    width: 15%;
+    transition: 0.5s;
+    border: none;
+    font-family: "Trebuchet MS";
+    font-size: 30px;
+}
+#back:hover {
+    color: black;
+    background-color: #928f83;
+}
