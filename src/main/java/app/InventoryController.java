@@ -6,10 +6,7 @@ import app.domain.TraderInventory;
 import app.service.FighterDTOService;
 import app.service.TraderDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -34,5 +31,8 @@ public class InventoryController {
         return fighterDTOService.getAllInventory(principal.getName());
     }
 
-    
+    @PostMapping(value = "/buy", produces = "application/json")
+    public String buyItems(@Valid @RequestBody TraderInventory request, Principal principal){
+        return null;
+    }
 }

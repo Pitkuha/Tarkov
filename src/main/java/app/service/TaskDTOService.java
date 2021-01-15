@@ -1,6 +1,7 @@
 package app.service;
 
 import app.domain.Task;
+import app.domain.TraderInventory;
 import app.domain.TraderTasks;
 import app.repository.*;
 import app.util.Tasks;
@@ -10,20 +11,18 @@ import java.util.List;
 
 @Component
 public class TaskDTOService {
-    private final TaskRepository taskRepository;
 
     //
-    private final TrustRepository trustRepository;
     private final FighterRepository fighterRepository;
-    private final TraderRepository traderRepository;
     private final TraderTasksRepository traderTasksRepository;
+    private final TraderInventoryRepository traderInventoryRepository;
+    private final TraderRepository traderRepository;
 
-    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository) {
-        this.taskRepository = taskRepository;
-        this.trustRepository = trustRepository;
+    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, TraderRepository traderRepository1) {
         this.fighterRepository = fighterRepository;
-        this.traderRepository = traderRepository;
         this.traderTasksRepository = traderTasksRepository;
+        this.traderInventoryRepository = traderInventoryRepository;
+        this.traderRepository = traderRepository1;
     }
 
     public List<Tasks> getAllAvailableTasks(String name){
@@ -65,5 +64,25 @@ public class TaskDTOService {
 
     public Task getCurrentTask(String name){
         return fighterRepository.findTask(name);
+    }
+
+    public String buyItem(String name, TraderInventory traderInventory){
+        traderInventoryRepository.updateInventory(traderInventory.getId(),traderInventory.getAmount());
+        traderRepository.updateTraderMoney(traderInventory.getId(),traderInventory.getPrice() * traderInventory.getAmount());
+        fighterRepository.updateMoneyAfterBuying(name,traderInventory.getPrice() * traderInventory.getAmount());
+        if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0).getId()
+                ,traderInventory.getAmmunition_id().getId()
+                ,traderInventory.getArmor_id().getId()
+                ,traderInventory.getHelmet_id().getId()
+                ,traderInventory.getMagazine_id().getId()
+                ,traderInventory.getMedicine_id().getId()
+                ,traderInventory.getProvision_id().getId()
+                ,traderInventory.getWeapon_id().getId()) == 0){
+
+        } else {
+
+        }
+
+        return null;
     }
 }
