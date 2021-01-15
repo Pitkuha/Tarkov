@@ -37,47 +37,48 @@ public class TraderDTOService {
         return fromDB;
     }
 
-    public String buyItem(String name, TraderInventory traderInventory){
-        traderInventoryRepository.updateInventoryTrader(traderInventory.getId(),traderInventory.getAmount());
-        traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(traderInventory.getId()),traderInventory.getPrice() * traderInventory.getAmount());
-        fighterRepository.updateMoneyAfterBuying(name,traderInventory.getPrice() * traderInventory.getAmount());
+    public String buyItem(String name, TraderInventory request){
+        traderInventoryRepository.updateInventoryTrader(request.getId(),request.getAmount());
+        traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(request.getId()),request.getPrice() * request.getAmount());
+        fighterRepository.updateMoneyAfterBuying(name,request.getPrice() * request.getAmount());
         if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getAmmunition_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getArmor_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getHelmet_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getMagazine_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getMedicine_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getProvision_id()
-                ,traderInventoryRepository.findTI(traderInventory.getId()).getWeapon_id()) == 0){
+                ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()) == 0){
             fighterInventoryRepository.save(new FighterInventory(fighterRepository.findByCallsign(name).get(0)
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getWeapon_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getAmmunition_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getMagazine_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getMedicine_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getProvision_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getArmor_id()
-                    ,traderInventoryRepository.findTI(traderInventory.getId()).getHelmet_id()
-                    ,traderInventory.getAmount()));
+                    ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                    ,request.getAmount()));
         } else {
-            fighterRepository.updateAfterBuying(traderInventory.getAmmunition_id().getId()
-                    ,traderInventory.getArmor_id().getId()
-                    ,traderInventory.getHelmet_id().getId()
-                    ,traderInventory.getMagazine_id().getId()
-                    ,traderInventory.getMedicine_id().getId()
-                    ,traderInventory.getProvision_id().getId()
-                    ,traderInventory.getWeapon_id().getId()
-                    ,traderInventory.getAmount()
-                    ,fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0).getId()
-                            ,traderInventory.getAmmunition_id().getId()
-                            ,traderInventory.getArmor_id().getId()
-                            ,traderInventory.getHelmet_id().getId()
-                            ,traderInventory.getMagazine_id().getId()
-                            ,traderInventory.getMedicine_id().getId()
-                            ,traderInventory.getProvision_id().getId()
-                            ,traderInventory.getWeapon_id().getId()
-                            ,traderInventory.getAmount()).getId());
+            System.out.println("хуй");
+            fighterRepository.updateAfterBuying(
+                     traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                    ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                    ,request.getAmount()
+                    ,fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0)
+                            ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                            ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
+            System.out.println("Хуй 2");
         }
-
         return "buyItem() ok!";
     }
 }

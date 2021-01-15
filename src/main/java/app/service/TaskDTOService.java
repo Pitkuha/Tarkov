@@ -8,6 +8,8 @@ import app.repository.*;
 import app.util.Tasks;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -57,11 +59,15 @@ public class TaskDTOService {
         return fighterRepository.findByCallsign(name).get(0).getTask() == null;
     }
 
-    public String passTask(String name){
+    public String passTask(String name, HttpServletResponse response) throws IOException {
         Task task = fighterRepository.findTask(name);
-        double reward = task.getReward();
-        fighterRepository.updateMoney(name,reward);
-        fighterRepository.updateTaskNull(name);
+        if (task != null) {
+            double reward = task.getReward();
+            fighterRepository.updateMoney(name, reward);
+            fighterRepository.updateTaskNull(name);
+        } else {
+            response.sendError(418,"У вас нету никаких тасков");
+        }
         return "passTask() ok!";
     }
 
