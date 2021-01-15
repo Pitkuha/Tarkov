@@ -11,8 +11,9 @@
 </head>
 <body>
 <div id ="app">
-    <ul>
-        <li v-for="item in items">
+    <div id="items">
+    <ol class="square">
+        <li class="item" v-for="item in items">
             <p v-if="item.medicine_id">
                 Название: {{item.medicine_id.name}} <br>
                 Запас здоровья: {{item.medicine_id.healt_resource}} <br>
@@ -52,7 +53,8 @@
                 Калибр: {{item.magazine_id.caliber}} <br>
             </p>
         </li>
-    </ul>
+    </ol>
+    </div>
 </div>
 <script type="application/javascript">
     new Vue({

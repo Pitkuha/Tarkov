@@ -2,7 +2,6 @@ body {
     background: url("../picture/maxresdefault.jpg");
     text-align: center;
     background-size: cover;
-    opacity: 50%;
 }
 
 .choose {
@@ -27,9 +26,9 @@ body {
 }
 .task{
     color: white;
-    ffont-family: "Trebuchet MS";
+    font-family: "Trebuchet MS";
     font-size: 20px;
-
+    background-color: rgba(46, 49, 49, .5);
 }
 #back {
     background-color: transparent;
