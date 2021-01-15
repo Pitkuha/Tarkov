@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style-traderpage.css">
+    <title>Trader</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="traderInfo">{{trader}}</div>
+        <ol class="square">
+            <li class="item" v-for="item in inventory">
+                <p v-if="item.medicine_id">
+                    Название: {{item.medicine_id.name}} <br>
+                    Запас здоровья: {{item.medicine_id.healt_resource}} <br>
+                </p>
+                <p v-if="item.weapon_id">
+                    Название: {{item.weapon_id.name}} <br>
+                    Тип: {{item.weapon_id.type}} <br>
+                    Точность: {{item.weapon_id.accuracy}} <br>
+                    Эргономикс: {{item.weapon_id.ergonomics}} <br>
+                    Начальная скорость: {{item.weapon_id.starting_speed}} <br>
+                    Калибр: {{item.weapon_id.caliber}} <br>
+                    Состояние: {{item.weapon_id.technical_condition}} <br>
+                </p>
+                <p v-if="item.ammunition_id">
+                    Калибр: {{item.ammunition_id.caliber}} <br>
+                    Скорость: {{item.ammunition_id.bullet_speed}} <br>
+                </p>
+                <p v-if="item.helmet_id">
+                    Название: {{item.helmet_id.name}} <br>
+                    Материал: {{item.helmet_id.material}} <br>
+                    Класс армора: {{item.helmet_id.armor_class}} <br>
+                    Очки брони: {{item.helmet_id.armor_point}} <br>
+                    Шанс рикошета: {{item.helmet_id.ricochet_chance}} <br>
+                </p>
+                <p v-if="item.provision_id">
+                    Название: {{item.provision_id.name}} <br>
+                    Энергия: {{item.provision_id.energy}} <br>
+                </p>
+                <p v-if="item.armor_id">
+                    Название: {{item.armor_id.name}} <br>
+                    Материал: {{item.armor_id.material}} <br>
+                    Класс армора: {{item.armor_id.armor_class}} <br>
+                    Очки брони: {{item.armor_id.armor_point}} <br>
+                </p>
+                <p v-if="item.magazine_id">
+                    Эргономикс: {{item.magazine_id.ergonomics}} <br>
+                    Калибр: {{item.magazine_id.caliber}} <br>
+                </p>
+                <p>Количество: {{item.amount}} <br>
+                    Цена: {{item.price}} <br></p>
+            </li>
+        </ol>
+        <input type="button" id="back" value="BACK" name="back" onclick="back()">
+    </div>
+    <script type="application/javascript">
+        var app2 = new Vue({
+            el: '#app',
+            data: {
+                trader:'',
+                inventory:''
+            },
+            methods: {
+                getTraderInventory: function () {
+                    return axios
+                        .get('http://localhost:8080/TraderInventory?callsign=' + this.trader, )
+                        .then(response => (this.inventory = response.data));
+                },
+                getTasks: function () {
+                    return axios
+                        .get('http://localhost:8080/GetTasks')
+                        .then(response => (this.tasks = response.data));
+                },
+                getTraderCallSign: function ()
+
+                {
+                    let uri = window.location.search.substring(1);
+                    let params = new URLSearchParams(uri);
+                    this.trader = params.get("callsign");
+                }
+
+            },
+
+            mounted() {
+                this.getTraderCallSign();
+                this.getTraderInventory();
+            }
+        });
+    </script>
+    <script>
+        function back() {
+            window.location = "AfterAvtor.html"
+        }
+    </script>
+</body>
+</html>

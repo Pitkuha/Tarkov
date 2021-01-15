@@ -14,30 +14,30 @@
     <table width="50%">
         <tr>
             <td>
-                <input type="button" id="prapor" class="but" value="PRAPOR" name="prap" onclick="">
+                <input type="button" id="prapor" class="but" value="PRAPOR" name="prap" onclick="gotrader('Prapor')">
             </td>
             <td>
-                <input type="button" id="terapevt" class="but" value="TERAPEVT" name="tera" onclick="">
+                <input type="button" id="terapevt" class="but" value="TERAPEVT" name="tera" onclick="gotrader('Terapevt')">
             </td>
             <td>
-                <input type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup" onclick="">
+                <input type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup" onclick="gotrader('Skupshik')">
             </td>
             <td>
-                <input type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh" onclick="">
+                <input type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh" onclick="gotrader('Lizhnik')">
             </td>
         </tr>
         <tr>
             <td>
-                <input type="button" id="mirotvorec" class="but" value="MIROTVOREC" name="miro" onclick="">
+                <input type="button" id="mirotvorec" class="but" value="MIROTVOREC" name="miro" onclick="gotrader('Mirotvorec')">
             </td>
             <td>
-                <input type="button" id="mechanic" class="but" value="MECHANIC" name="mechanic" onclick="">
+                <input type="button" id="mechanic" class="but" value="MECHANIC" name="mechanic" onclick="gotrader('Mechanic')">
             </td>
             <td>
-                <input type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara" onclick="">
+                <input type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara" onclick="gotrader('Barah')">
             </td>
             <td>
-                <input type="button" id="eger" class="but" value="EGER" name="eger" onclick="">
+                <input type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
             </td>
         </tr>
         <tr>
@@ -51,6 +51,9 @@
     function back()
     {
         window.location = "AfterAvtor.html"
+    }
+    function gotrader(trader) {
+        window.location = "traderpage.html?callsign=" + trader
     }
 </script>
 </body>

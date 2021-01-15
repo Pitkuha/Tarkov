@@ -28,20 +28,20 @@
             Награда: {{task.reward}} <br>
             Владелец: {{task.callSign}} <br>
             <input v-if="task.callSign=='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
-                   onclick="">
+                   onclick="gotrader('Prapor')">
             <input v-if="task.callSign=='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
-                   onclick="">
+                   onclick="gotrader('Terapevt')">
             <input v-if="task.callSign=='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
-                   onclick="">
+                   onclick="gotrader('Skupshik')">
             <input v-if="task.callSign=='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
-                   onclick="">
+                   onclick="gotrader('Lizhnik')">
             <input v-if="task.callSign=='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
-                   name="miro" onclick="">
+                   name="miro" onclick="gotrader('Mirotvorec')">
             <input v-if="task.callSign=='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
-                   name="mechanic" onclick="">
+                   name="mechanic" onclick="gotrader('Mechanic')">
             <input v-if="task.callSign=='Barah'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
-                   onclick="">
-            <input v-if="task.callSign=='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="">
+                   onclick="gotrader('Barah')">
+            <input v-if="task.callSign=='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
             <br>
             <button v-on:click="takeTask(task.id)" class="choose">Выбрать</button>
         </li>
@@ -100,6 +100,9 @@
 <script>
     function back() {
         window.location = "AfterAvtor.html"
+    }
+    function gotrader(trader) {
+        window.location = "traderpage.html?callsign=" + trader
     }
 </script>
 </body>
