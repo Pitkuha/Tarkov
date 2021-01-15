@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FighterInventoryRepository extends JpaRepository<FighterInventory, FighterInventoryPK> {
+public interface FighterInventoryRepository extends JpaRepository<FighterInventory, Long> {
     List<FighterInventory> getAllByFighterId(Fighter byId);
 }
