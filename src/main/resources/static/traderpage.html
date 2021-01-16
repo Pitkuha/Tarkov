@@ -11,7 +11,16 @@
 </head>
 <body>
     <div id="app">
-        <div id="traderInfo">Имя: {{trader}} <br>
+        <div id="traderInfo">
+            <img  v-if="trader=='Prapor'" src="picture/prapor.png">
+            <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
+            <img  v-if="trader=='Skupshik'" src="picture/skupshik.png">
+            <img  v-if="trader=='Lizhnik'" src="picture/lizhnik.png">
+            <img  v-if="trader=='Mirotvorec'" src="picture/mirotvorec.png">
+            <img  v-if="trader=='Mechanic'" src="picture/mechanic.png">
+            <img  v-if="trader=='Barah'" src="picture/barac.png">
+            <img  v-if="trader=='Eger'" src="picture/eger.png">
+           <br> Имя: {{trader}} <br>
         Деньги: {{money}} <br></div>
         <ol class="square">
             <li class="item" v-for="item in inventory">
