@@ -38,47 +38,61 @@ public class TraderDTOService {
         return fromDB;
     }
 
-    public String buyItem(String name, TraderInventory request){
-        traderInventoryRepository.updateInventoryTrader(request.getId(),request.getAmount());
-        traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(request.getId()),request.getPrice() * request.getAmount());
-        fighterRepository.updateMoneyAfterBuying(name,request.getPrice() * request.getAmount());
-        if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
-                ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()) == 0){
-            fighterInventoryRepository.save(new FighterInventory(fighterRepository.findByCallsign(name).get(0)
-                    ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                    ,request.getAmount()));
+    public String buyItem(String name, TraderInventory request, HttpServletResponse httpServletResponse) throws IOException {
+        if (traderInventoryRepository.findTI(request.getId()) == null){
+            httpServletResponse.sendError(418, "несуществующее говно");
+            return "Несущ. говно";
         } else {
-            fighterRepository.updateAfterBuying(
-                     traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                    ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()
-                    ,request.getAmount()
-                    ,fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0)
-                            ,traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                            ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
+        double price = traderInventoryRepository.findTI(request.getId()).getPrice();
+        if (traderInventoryRepository.findTI(request.getId()).getAmount() < request.getAmount()){
+            httpServletResponse.sendError(418,"Столько нет в наличии");
+            return "Столько нет в наличии";
+        } else if(fighterRepository.findByCallsign(name).get(0).getMoney() < price * request.getAmount()){
+            httpServletResponse.sendError(418,"Столько нет денег");
+            return "Столько нет денег";
+        } else {
+            traderInventoryRepository.updateInventoryTrader(request.getId(), request.getAmount());
+            traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(request.getId()), price * request.getAmount());
+            fighterRepository.updateMoneyAfterBuying(name, price * request.getAmount());
+            if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
+                    , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                    , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                    , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                    , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                    , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                    , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                    , traderInventoryRepository.findTI(request.getId()).getWeapon_id()) == 0) {
+                fighterInventoryRepository.save(new FighterInventory(fighterRepository.findByCallsign(name).get(0)
+                        , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                        , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                        , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                        , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                        , request.getAmount()));
+            } else {
+                fighterRepository.updateAfterBuying(
+                        traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                        , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                        , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                        , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                        , request.getAmount()
+                        , fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0)
+                                , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                                , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                                , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                                , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                                , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                                , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                                , traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
+            }
+            return "buyItem() ok!";
+            }
         }
-        return "buyItem() ok!";
     }
 
     public Trader getTrader(String name, HttpServletResponse httpServletResponse) throws IOException {
