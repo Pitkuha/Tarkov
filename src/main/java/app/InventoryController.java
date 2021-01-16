@@ -34,9 +34,13 @@ public class InventoryController {
     }
 
     @PostMapping(value = "/buy", produces = "application/json")
-    public String buyItems(@Valid @RequestBody TraderInventory request, Principal principal){
-        System.out.println("Хуйконтрллер" + request);
-        traderDTOService.buyItem(principal.getName(),request);
+    public String buyItems(@Valid @RequestBody TraderInventory request, Principal principal, HttpServletResponse httpServletResponse) throws IOException {
+        traderDTOService.buyItem(principal.getName(),request,httpServletResponse);
         return "buy ok!";
+    }
+    
+    @GetMapping("/getTrader")
+    public Trader getTrader(@RequestParam(name = "callsign", required = true) String request, HttpServletResponse httpServletResponse) throws IOException {
+        return traderDTOService.getTrader(request, httpServletResponse);
     }
 }
