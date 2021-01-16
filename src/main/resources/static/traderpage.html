@@ -11,7 +11,8 @@
 </head>
 <body>
     <div id="app">
-        <div id="traderInfo">{{trader}}</div>
+        <div id="traderInfo">Имя: {{trader}} <br>
+        Деньги: {{money}} <br></div>
         <ol class="square">
             <li class="item" v-for="item in inventory">
                 <p v-if="item.medicine_id">
@@ -63,13 +64,19 @@
             el: '#app',
             data: {
                 trader:'',
+                money:'',
                 inventory:''
             },
             methods: {
                 getTraderInventory: function () {
                     return axios
                         .get('http://localhost:8080/TraderInventory?callsign=' + this.trader, )
-                        .then(response => (this.inventory = response.data));
+                        .then(response => (this.inventory = response.data)).finally(() => this.getTraderInfo());
+                },
+                getTraderInfo: function () {
+                    return axios
+                        .get('http://localhost:8080/getTrader?callsign=' + this.trader)
+                        .then(response => (this.money = response.data.money));
                 },
                 getTasks: function () {
                     return axios
@@ -94,7 +101,7 @@
     </script>
     <script>
         function back() {
-            window.location = "AfterAvtor.html"
+            window.location = "Traders.html"
         }
     </script>
 </body>
