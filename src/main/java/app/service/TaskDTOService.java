@@ -1,8 +1,6 @@
 package app.service;
 
-import app.domain.FighterInventory;
 import app.domain.Task;
-import app.domain.TraderInventory;
 import app.domain.TraderTasks;
 import app.repository.*;
 import app.util.Tasks;
@@ -18,18 +16,10 @@ public class TaskDTOService {
     //
     private final FighterRepository fighterRepository;
     private final TraderTasksRepository traderTasksRepository;
-    private final TraderInventoryRepository traderInventoryRepository;
-    private final TraderRepository traderRepository;
-    private final FighterInventoryRepository fighterInventoryRepository;
-    private final HelmetRepository helmetRepository;
 
     public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, TraderRepository traderRepository1, FighterInventoryRepository fighterInventoryRepository, HelmetRepository helmetRepository) {
         this.fighterRepository = fighterRepository;
         this.traderTasksRepository = traderTasksRepository;
-        this.traderInventoryRepository = traderInventoryRepository;
-        this.traderRepository = traderRepository1;
-        this.fighterInventoryRepository = fighterInventoryRepository;
-        this.helmetRepository = helmetRepository;
     }
 
     public List<Tasks> getAllAvailableTasks(String name){

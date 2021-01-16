@@ -39,4 +39,9 @@ public class InventoryController {
         traderDTOService.buyItem(principal.getName(),request);
         return "buy ok!";
     }
+    
+    @GetMapping("/getTrader")
+    public Trader getTrader(@RequestParam(name = "callsign", required = true) String request, HttpServletResponse httpServletResponse) throws IOException {
+        return traderDTOService.getTrader(request, httpServletResponse);
+    }
 }

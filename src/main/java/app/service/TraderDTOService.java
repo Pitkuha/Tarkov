@@ -1,6 +1,7 @@
 package app.service;
 
 import app.domain.FighterInventory;
+import app.domain.Trader;
 import app.domain.TraderInventory;
 import app.repository.FighterInventoryRepository;
 import app.repository.FighterRepository;
@@ -59,7 +60,6 @@ public class TraderDTOService {
                     ,traderInventoryRepository.findTI(request.getId()).getHelmet_id()
                     ,request.getAmount()));
         } else {
-            System.out.println("хуй");
             fighterRepository.updateAfterBuying(
                      traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
                     ,traderInventoryRepository.findTI(request.getId()).getArmor_id()
@@ -77,8 +77,17 @@ public class TraderDTOService {
                             ,traderInventoryRepository.findTI(request.getId()).getMedicine_id()
                             ,traderInventoryRepository.findTI(request.getId()).getProvision_id()
                             ,traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
-            System.out.println("Хуй 2");
         }
         return "buyItem() ok!";
+    }
+
+    public Trader getTrader(String name, HttpServletResponse httpServletResponse) throws IOException {
+        List<Trader> trader = traderRepository.findByCallsign(name);
+        if (trader.isEmpty()){
+            httpServletResponse.sendError(418,"Несуществующий традер");
+            return null;
+        } else {
+            return trader.get(0);
+        }
     }
 }
