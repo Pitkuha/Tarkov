@@ -34,6 +34,7 @@
                 Состояние: {{item.weapon_id.technical_condition}} <br>
             </p>
             <p v-if="item.ammunition_id">
+                Боеприпас <br>
                 Калибр: {{item.ammunition_id.caliber}} <br>
                 Скорость: {{item.ammunition_id.bullet_speed}} <br>
             </p>
@@ -55,9 +56,11 @@
                 Очки брони: {{item.armor_id.armor_point}} <br>
             </p>
             <p v-if="item.magazine_id">
+                Магазин <br>
                 Эргономикс: {{item.magazine_id.ergonomics}} <br>
                 Калибр: {{item.magazine_id.caliber}} <br>
             </p>
+            <p>Количество: {{item.amount}}</p>
         </li>
     </ol>
     </div>
