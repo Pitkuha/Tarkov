@@ -5,6 +5,7 @@ import app.domain.FighterInventory;
 import app.domain.UserDTO;
 import app.repository.FighterInventoryRepository;
 import app.repository.FighterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.List;
 public class FighterDTOService {
     private final FighterInventoryRepository fighterInventoryRepository;
     private final FighterRepository fighterRepository;
+
+    @Autowired
+    private TrustDTOService trustDTOService;
 
     public FighterDTOService(FighterInventoryRepository fighterInventoryRepository, FighterRepository fighterRepository) {
         this.fighterInventoryRepository = fighterInventoryRepository;
@@ -30,6 +34,8 @@ public class FighterDTOService {
         fighter.setMoney(400000);
         fighter.setTask(null);
         fighterRepository.save(fighter);
+        trustDTOService.creatingTrusts(userdata.getUsername());
+
         return fighter;
     }
 }

@@ -3,6 +3,7 @@ package app;
 import app.domain.Fighter;
 import app.domain.UserDTO;
 import app.service.FighterDTOService;
+import app.service.TrustDTOService;
 import app.service.UserDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
