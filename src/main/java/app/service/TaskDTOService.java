@@ -1,6 +1,7 @@
 package app.service;
 
 import app.domain.Task;
+import app.domain.TraderInventory;
 import app.domain.TraderTasks;
 import app.repository.*;
 import app.util.Tasks;
@@ -16,10 +17,16 @@ public class TaskDTOService {
     //
     private final FighterRepository fighterRepository;
     private final TraderTasksRepository traderTasksRepository;
+    private final TraderInventoryRepository traderInventoryRepository;
+    private final TraderRepository traderRepository;
+    private  final HelmetRepository helmetRepository;
 
-    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, TraderRepository traderRepository1, FighterInventoryRepository fighterInventoryRepository, HelmetRepository helmetRepository) {
+    public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, FighterInventoryRepository fighterInventoryRepository, HelmetRepository helmetRepository) {
         this.fighterRepository = fighterRepository;
         this.traderTasksRepository = traderTasksRepository;
+        this.traderInventoryRepository = traderInventoryRepository;
+        this.traderRepository = traderRepository;
+        this.helmetRepository = helmetRepository;
     }
 
     public List<Tasks> getAllAvailableTasks(String name){
@@ -34,6 +41,7 @@ public class TaskDTOService {
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(624L),taskRepository.getOne(643L)));
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(643L)));
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(644L)));
+        //traderInventoryRepository.save(new TraderInventory(traderRepository.getOne(23L),null,null,null,null,null,null, helmetRepository.getOne(76L),5,15000 ));
         List<Tasks> fromDB = traderTasksRepository.FindAllWithDescriptionQuery(name);
         return fromDB;
     }

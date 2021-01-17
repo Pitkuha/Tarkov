@@ -64,8 +64,8 @@
                 </p>
                 <p>Количество: {{item.amount}} <br>
                     Цена: {{item.price}} <br></p>
-                <input type="number" name="amount" v-model="amount_of_items"> <br>
-                <input type="button" class="but" v-on:click="buyItem(item.id)" value="Купить">
+                <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
+                <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
             </li>
         </ol>
         <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
@@ -90,8 +90,8 @@
                         .get('http://localhost:8080/getTrader?callsign=' + this.trader)
                         .then(response => (this.money = response.data.money));
                 },
-                buyItem: function (itemId) {
-                    return axios.post('http://localhost:8080/buy', {id: itemId, amount: this.amount_of_items}).then(response => {
+                buyItem: function (itemId, amountOfItems) {
+                    return axios.post('http://localhost:8080/buy', {id: itemId, amount: amountOfItems}).then(response => {
                         console.log(response.data);
                     }).finally(() => this.getTraderInventory());
                 },
