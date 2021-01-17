@@ -133,3 +133,9 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+#error{
+    color: red;
+    font-family: "Trebuchet MS";
+    font-size: 20px;
+    background-color: rgba(46, 49, 49, .5);
+}

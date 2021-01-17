@@ -41,6 +41,9 @@ public class TaskDTOService {
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(624L),taskRepository.getOne(643L)));
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(643L)));
 //        traderTasksRepository.save(new TraderTasks(traderRepository.getOne(625L),taskRepository.getOne(644L)));
+//        traderInventoryRepository.updateInventoryTrader(72L, -10);
+//        traderInventoryRepository.updateInventoryTrader(73L, -10);
+//        traderInventoryRepository.updateInventoryTrader(101L, -10);
         //traderInventoryRepository.save(new TraderInventory(traderRepository.getOne(23L),null,null,null,null,null,null, helmetRepository.getOne(76L),5,15000 ));
         List<Tasks> fromDB = traderTasksRepository.FindAllWithDescriptionQuery(name);
         return fromDB;
