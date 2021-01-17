@@ -25,7 +25,6 @@
         <br>
         <button v-on:click="taskCompleted" class="choose">Выполнить</button> <br>
     <p v-if="!currentTask" id="error">{{errorTaskCompleted}}</p>
-    </p>
     <div id="tasks">
     <ul class="square">
         <li class="task" v-for="task in tasks">
