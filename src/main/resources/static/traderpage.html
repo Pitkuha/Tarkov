@@ -27,7 +27,7 @@
            <br> Имя: {{trader}} <br>
         Деньги: {{money}} <br></div>
         <ol class="square">
-            <li class="item" v-for="item in inventory">
+            <li class="item" v-if="item.amount" v-for="item in inventory">
                 <p v-if="item.medicine_id">
                     Название: {{item.medicine_id.name}} <br>
                     Запас здоровья: {{item.medicine_id.healt_resource}} <br>
