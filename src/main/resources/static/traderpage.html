@@ -71,7 +71,7 @@
                 <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
                 <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
             </li>
-            <p id="error"> {{error_msg}}</p>
+            <p v-if="error_msg" id="error"> {{error_msg}}</p>
         </ol>
         <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
     </div>
@@ -84,7 +84,7 @@
                 money:'',
                 inventory:'',
                 amount_of_items:'',
-                error_msg:'хы'
+                error_msg:''
             },
             methods: {
                 getUserInfo: function () {
