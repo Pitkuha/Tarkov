@@ -8,12 +8,13 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
 </head>
 <body>
 <div id="app" class="bubu">
     <div id="userInfo">
         <p>Позывной: {{userInfo.callsign}}<br>
-            Деньги: {{userInfo.money}}<br></p>
+            Деньги: {{animatedFighterMoney}}<br></p>
     </div>
     <p class="task">Текущее задание:<br>
         Название: {{currentTask.name}} <br>
@@ -62,7 +63,8 @@
             userInfo:'',
             currentTask: '',
             tasks: '',
-            errorTaskCompleted:''
+            errorTaskCompleted:'',
+            FighterMoney:0
         },
         methods: {
             getCurrentTask: function () {
@@ -98,6 +100,19 @@
                     }
                 );
 
+            }
+        },
+        computed: {
+            fighterBank: function () {
+                return this.userInfo.money;
+            },
+            animatedFighterMoney: function() {
+                return this.FighterMoney.toFixed(0);
+            }
+        },
+        watch: {
+            fighterBank: function(newValue) {
+                gsap.to(this.$data, { duration: 1, FighterMoney: newValue });
             }
         },
         mounted() {
