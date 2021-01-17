@@ -61,16 +61,19 @@ body {
     border: 2px solid #389F70;
     background: #98EABA;
 }
-#back {
+.but {
     background-color: transparent;
     color: white;
-    width: 15%;
+    width: 60%;
     transition: 0.5s;
     border: none;
     font-family: "Trebuchet MS";
     font-size: 30px;
 }
-#back:hover {
+.but:hover {
     color: black;
     background-color: #928f83;
+}
+#back{
+    width: 15%;
 }
