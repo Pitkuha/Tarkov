@@ -19,7 +19,7 @@ public class TaskDTOService {
     private final TraderTasksRepository traderTasksRepository;
     private final TraderInventoryRepository traderInventoryRepository;
     private final TraderRepository traderRepository;
-    private  final HelmetRepository helmetRepository;
+    private final HelmetRepository helmetRepository;
 
     public TaskDTOService(TaskRepository taskRepository, TrustRepository trustRepository, FighterRepository fighterRepository, TraderRepository traderRepository, TraderTasksRepository traderTasksRepository, TraderInventoryRepository traderInventoryRepository, FighterInventoryRepository fighterInventoryRepository, HelmetRepository helmetRepository) {
         this.fighterRepository = fighterRepository;

@@ -15,10 +15,10 @@ public class DataSourceConfig {
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("oracle.jdbc.driver.OracleDriver");
-        dataSourceBuilder.url("jdbc:oracle:thin:@localhost:1521:EC11");
-        dataSourceBuilder.username("sys as sysdba");
-        dataSourceBuilder.password("zxcqwe");
+        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
+        dataSourceBuilder.username("postgres");
+        dataSourceBuilder.password("Postgreshehmda");
 
         return dataSourceBuilder.build();
     }
