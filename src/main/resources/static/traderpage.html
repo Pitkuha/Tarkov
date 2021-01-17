@@ -11,6 +11,10 @@
 </head>
 <body>
     <div id="app">
+        <div id="userInfo">
+            Позывной: {{userInfoTraderPage.callsign}} <br>
+            Деньги: {{userInfoTraderPage.money}}
+        </div>
         <div id="traderInfo">
             <img  v-if="trader=='Prapor'" src="picture/prapor.png">
             <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
@@ -74,16 +78,24 @@
         var app2 = new Vue({
             el: '#app',
             data: {
+                userInfoTraderPage:'',
                 trader:'',
                 money:'',
                 inventory:'',
                 amount_of_items:''
             },
             methods: {
+                getUserInfo: function () {
+                    return axios
+                        .get('http://localhost:8080/UserInfo')
+                        .then(response => (
+                            this.userInfoTraderPage = response.data));
+                },
                 getTraderInventory: function () {
                     return axios
                         .get('http://localhost:8080/TraderInventory?callsign=' + this.trader, )
-                        .then(response => (this.inventory = response.data)).finally(() => this.getTraderInfo());
+                        .then(response => (this.inventory = response.data)).finally(() => this.getTraderInfo())
+                        .finally(() => this.getUserInfo());
                 },
                 getTraderInfo: function () {
                     return axios

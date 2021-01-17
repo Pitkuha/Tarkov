@@ -11,6 +11,10 @@
 </head>
 <body>
 <div id="app" class="bubu">
+    <div id="userInfo">
+        <p>Позывной: {{userInfo.callsign}}<br>
+            Деньги: {{userInfo.money}}<br></p>
+    </div>
     <p class="task">Текущее задание:<br>
         Название: {{currentTask.name}} <br>
         Описание: {{currentTask.description}} <br>
@@ -54,6 +58,7 @@
     new Vue({
         el: '#app',
         data: {
+            userInfo:'',
             currentTask: '',
             tasks: ''
         },
@@ -63,6 +68,12 @@
                     .get('http://localhost:8080/getCurrentTask')
                     .then(response => (this.currentTask = response.data));
             },
+            getUserInfo : function () {
+                return axios
+                    .get('http://localhost:8080/UserInfo')
+                    .then(response => (
+                        this.userInfo = response.data));
+            },
             getTasks: function () {
                 return axios
                     .get('http://localhost:8080/GetTasks')
@@ -71,7 +82,7 @@
             taskCompleted: function () {
                 axios.post('http://localhost:8080/passTask').then(response => {
                     console.log(response.data);
-                });
+                }).finally(() => this.getUserInfo());
                 this.currentTask = '';
             },
             takeTask: function (task_id) {
@@ -79,7 +90,7 @@
                     console.log(response.data);
                 }).finally(() => {
                         this.getCurrentTask().finally(() => {
-                            this.getTasks()
+                            this.getTasks().finally(() => this.getUserInfo())
                         });
 
                     }
@@ -88,12 +99,9 @@
             }
         },
         mounted() {
-            axios
-                .get('http://localhost:8080/GetTasks')
-                .then(response => (this.tasks = response.data));
-            axios
-                .get('http://localhost:8080/getCurrentTask')
-                .then(response => (this.currentTask = response.data));
+            this.getTasks();
+            this.getCurrentTask();
+            this.getUserInfo();
         }
     });
 </script>
