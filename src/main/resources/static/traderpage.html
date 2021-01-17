@@ -8,12 +8,13 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
 </head>
 <body>
     <div id="app">
         <div id="userInfo">
             Позывной: {{userInfoTraderPage.callsign}} <br>
-            Деньги: {{userInfoTraderPage.money}}
+            Деньги: {{animatedFighterMoney}}
         </div>
         <div id="traderInfo">
             <img  v-if="trader=='Prapor'" src="picture/prapor.png">
@@ -25,7 +26,7 @@
             <img  v-if="trader=='Barah'" src="picture/barac.png">
             <img  v-if="trader=='Eger'" src="picture/eger.png">
            <br> Имя: {{trader}} <br>
-        Деньги: {{money}} <br></div>
+        Деньги: {{ animatedTraderMoney }} <br></div>
         <ol class="square">
             <li class="item" v-if="item.amount" v-for="item in inventory">
                 <p v-if="item.medicine_id">
@@ -86,7 +87,9 @@
                 money:'',
                 inventory:'',
                 amount_of_items:'',
-                error_msg:''
+                error_msg:'',
+                FighterMoney:0,
+                TraderMoney: 0
             },
             methods: {
                 getUserInfo: function () {
@@ -121,7 +124,25 @@
                 }
 
             },
-
+            computed: {
+                fighterBank: function () {
+                    return this.userInfoTraderPage.money;
+                },
+                animatedTraderMoney: function() {
+                    return this.TraderMoney.toFixed(0);
+                },
+                animatedFighterMoney: function() {
+                    return this.FighterMoney.toFixed(0);
+                }
+            },
+            watch: {
+                money: function(newValue) {
+                    gsap.to(this.$data, { duration: 1, TraderMoney: newValue });
+                },
+                fighterBank: function(newValue) {
+                    gsap.to(this.$data, { duration: 1, FighterMoney: newValue });
+                }
+            },
             mounted() {
                 this.getTraderCallSign();
                 this.getTraderInventory();
