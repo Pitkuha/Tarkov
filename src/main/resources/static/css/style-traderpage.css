@@ -168,3 +168,7 @@ p.speech:after {
     overflow-y: auto;
     overflow-x: hidden;
 }
+#inputAmount{
+    background-color: rgba(46, 49, 49, .5);
+    color: white;
+}

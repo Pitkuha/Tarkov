@@ -50,7 +50,34 @@
                         <li class="item" v-for="item in items">
                             <table>
                                 <tr>
-                                    <td><img src="picture/prapor.png"></td>
+                                    <td>                                        <img width="200px" height="200px" v-if="item.magazine_id && item.magazine_id.caliber===5.45" src="./picture/items/45orangeakimage.png">
+                                        <img width="200px" height="200px" v-if="item.ammunition_id && item.ammunition_id.caliber===5.45" src="./picture/items/5_45.png">
+                                        <img width="200px" height="200px" v-if="item.armor_id && item.armor_id.name==='6Б3ТМ-01М'" src="./picture/items/6B3TM-01M.png">
+                                        <img width="200px" height="200px" v-if="item.armor_id && item.armor_id.name==='6Б43'" src="./picture/items/6B43.png">
+                                        <img width="200px" height="200px" v-if="item.armor_id && item.armor_id.name==='6Б5-15 Улей'" src="./picture/items/6B5-15.png">
+                                        <img width="200px" height="200px" v-if="item.ammunition_id && item.ammunition_id.caliber===7.62" src="./picture/items/7.62x39PS_ins.png">
+                                        <img width="200px" height="200px" v-if="item.ammunition_id && item.ammunition_id.caliber===7" src="./picture/items/7mm.png">
+                                        <img width="200px" height="200px" v-if="item.ammunition_id && item.ammunition_id.caliber===9" src="./picture/items/9x18IMAGE.png">
+                                        <img width="200px" height="200px" v-if="item.weapon_id && item.weapon_id.name==='АК-74М'" src="./picture/items/AK-74M.png">
+                                        <img width="200px" height="200px" v-if="item.magazine_id && item.magazine_id.caliber===7.62" src="./picture/items/AK-103Mag.png">
+                                        <img width="200px" height="200px" v-if="item.weapon_id && item.weapon_id.name==='АКМН'" src="./picture/items/Akm.png">
+                                        <img width="200px" height="200px" v-if="item.provision_id && item.provision_id.name==='Галеты'" src="./picture/items/Army_Crackers.png">
+                                        <img width="200px" height="200px" v-if="item.medicine_id && item.medicine_id.name==='Бинт'" src="./picture/items/bint.png">
+                                        <img width="200px" height="200px" v-if="item.medicine_id && item.medicine_id.name==='Автомобильная аптечка'" src="./picture/items/EFT_Car-first-aid-kit.png">
+                                        <img width="200px" height="200px" v-if="item.medicine_id && item.medicine_id.name==='Salewa'" src="./picture/items/EFT_Salewa-First-Aid-Kit.png">
+                                        <img width="200px" height="200px" v-if="item.helmet_id && item.helmet_id.name==='Ops-Core Fast'" src="./picture/items/Helmet_ops_core_fast.png">
+                                        <img width="200px" height="200px" v-if="item.helmet_id && item.helmet_id.name==='Ратник-БШ'" src="./picture/items/Helmet_ratnik_6B47.png">
+                                        <img width="200px" height="200px" v-if="item.helmet_id && item.helmet_id.name==='СШ-68'" src="./picture/items/SH-68.png">
+                                        <img width="200px" height="200px" v-if="item.helmet_id && item.helmet_id.name==='Колпак 1'" src="./picture/items/Kolpak-1S.png">
+                                        <img width="200px" height="200px" v-if="item.provision_id && item.provision_id.name==='Сухпай Искра'" src="./picture/items/Lunchbox.png">
+                                        <img width="200px" height="200px" v-if="item.provision_id && item.provision_id.name==='Snickers'" src="./picture/items/Slickers_bar.png">
+                                        <img width="200px" height="200px" v-if="item.provision_id && item.provision_id.name==='Сайра консервированная'" src="./picture/items/Saury.png">
+                                        <img width="200px" height="200px" v-if="item.magazine_id && item.magazine_id.caliber===5.56" src="./picture/items/M4-Stanag30.png">
+                                        <img width="200px" height="200px" v-if="item.magazine_id && item.magazine_id.caliber===9" src="./picture/items/PM_9x18_8RdMagazine.png">
+                                        <img width="200px" height="200px" v-if="item.weapon_id && item.weapon_id.name==='Витязь-СН'" src="./picture/items/Pp19.png">
+                                        <img width="200px" height="200px" v-if="item.weapon_id && item.weapon_id.name==='Mossberg 590A1'" src="./picture/items/M590A1_View.png">
+                                        <img width="200px" height="200px" v-if="item.armor_id && item.armor_id.name==='PACA'" src="./picture/items/PACA_Soft_Armor.png">
+                                        <img width="200px" height="200px" v-if="item.medicine_id && item.medicine_id.name==='АИ-2'" src="./picture/items/Аи-2.png"></td>
                                     <td width="600px" style="text-align: center"><p v-if="item.medicine_id">
                                         Название: {{item.medicine_id.name}} <br>
                                         Запас здоровья: {{item.medicine_id.healt_resource}} <br>
