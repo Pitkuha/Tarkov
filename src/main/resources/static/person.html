@@ -63,6 +63,15 @@
             <p>Количество: {{item.amount}}</p>
         </li>
     </ol>
+
+    </div>
+    <div id="trusts">
+        <ul class="square">
+            <li class="item" v-for="trust in trusts">
+                Позывной: {{trust.name}} <br>
+                Уровень доверия: {{trust.trustLvl}} <br>
+            </li>
+        </ul>
     </div>
     <input type="button" id="back" value="BACK" name="back" onclick="back()">
 </div>
@@ -71,9 +80,15 @@
         el: '#app',
         data:{
             userInfo:'',
-            items:''
+            items:'',
+            trusts:''
         },
         methods:{
+            getTrusts: function () {
+                axios
+                    .get('http://localhost:8080/getTrusts')
+                    .then(response => (this.trusts = response.data));
+            },
             getFighterInventory : function () {
                 axios
                     .get('http://localhost:8080/FighterInventory')
@@ -89,6 +104,7 @@
         mounted() {
             this.getUserInfo();
             this.getFighterInventory();
+            this.getTrusts();
         }
     });
 </script>
