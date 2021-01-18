@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <div id="app">
@@ -17,6 +18,7 @@
             Деньги: {{animatedFighterMoney}}
         </div>
         <div id="traderInfo">
+            <p v-if="buyFlag" class="speech">Отличная сделка!</p> <br>
             <img  v-if="trader=='Prapor'" src="picture/prapor.png">
             <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
             <img  v-if="trader=='Skupshik'" src="picture/skupshik.png">
@@ -26,7 +28,9 @@
             <img  v-if="trader=='Barah'" src="picture/barac.png">
             <img  v-if="trader=='Eger'" src="picture/eger.png">
            <br> Имя: {{trader}} <br>
-        Деньги: {{ animatedTraderMoney }} <br></div>
+        Деньги: {{ animatedTraderMoney }} <br>
+        </div>
+        <div id="items">
         <ol class="square">
             <li class="item" v-if="item.amount" v-for="item in inventory">
                 <p v-if="item.medicine_id">
@@ -74,8 +78,11 @@
                 <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
                 <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
             </li>
+            <p v-if="!inventory.length" id="noItems">У продавца в текущий момент нет товаров, возвращайтесь позднее</p>
             <p v-if="error_msg" id="error"> {{error_msg}}</p>
+
         </ol>
+        </div>
         <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
     </div>
     <script type="application/javascript">
@@ -89,7 +96,8 @@
                 amount_of_items:'',
                 error_msg:'',
                 FighterMoney:0,
-                TraderMoney: 0
+                TraderMoney: 0,
+                buyFlag: false
             },
             methods: {
                 getUserInfo: function () {
@@ -111,8 +119,9 @@
                 },
                 buyItem: function (itemId, amountOfItems) {
                         return axios.post('http://localhost:8080/buy', {id: itemId, amount: amountOfItems}).then(response => {
-                            this.error_msg='';
-                        }).catch(error => this.error_msg=error.response.data.message).finally(() => this.getTraderInventory());
+                            this.error_msg=''; this.buyFlag=true; var snd = new Audio("Sound_16337.mp3"); // buffers automatically when created
+                            snd.play();
+                        }).catch(error => {this.error_msg=error.response.data.message; this.buyFlag=false;}).finally(() => this.getTraderInventory());
                 },
 
                 getTraderCallSign: function ()
@@ -137,10 +146,10 @@
             },
             watch: {
                 money: function(newValue) {
-                    gsap.to(this.$data, { duration: 1, TraderMoney: newValue });
+                    gsap.to(this.$data, { duration: 2, TraderMoney: newValue });
                 },
                 fighterBank: function(newValue) {
-                    gsap.to(this.$data, { duration: 1, FighterMoney: newValue });
+                    gsap.to(this.$data, { duration: 2, FighterMoney: newValue });
                 }
             },
             mounted() {

@@ -57,7 +57,7 @@ body {
     background: #98EABA;
 }
 #items{
-    width: 400px;
+    width: 800px;
     height: 800px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -80,4 +80,95 @@ body {
     font-family: "Trebuchet MS";
     font-size: 20px;
     background-color: rgba(46, 49, 49, .5);
+}
+#prapor {
+    background-image: url("../picture/prapor.png");
+}
+#terapevt {
+    background-image: url("../picture/terapevt.png");
+}
+#skupshik {
+    background-image: url("../picture/skupshik.png");
+}
+#lizhnik {
+    background-image: url("../picture/lizhnik.png");
+}
+#mirotvorec {
+    background-image: url("../picture/mirotvorec.png");
+}
+#mechanic {
+    background-image: url("../picture/mechanic.png");
+}
+#barah {
+    background-image: url("../picture/barac.png");
+}
+#eger {
+    background-image: url("../picture/eger.png");
+}
+.but {
+    width: 200px;
+    height: 200px;
+    font-size: 25px;
+    font-family: "Trebuchet MS";
+    padding: 160px 10px 10px;
+    color: white;
+    transition: 0.5s;
+    border: none;
+}
+.but:hover {
+    opacity: .65;
+}
+#trusts{
+    width: 400px;
+    height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.trust{
+    color: white;
+    font-family: "Trebuchet MS";
+    font-size: 20px;
+    background-color: rgba(46, 49, 49, .5);
+
+}
+#trusts::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #969292;
+}
+
+#trusts::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #969292;
+}
+
+#trusts::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+#items::-webkit-scrollbar-track
+ {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+     border-radius: 10px;
+     background-color: #969292;
+ }
+
+#items::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #969292;
+}
+
+#items::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+#dicpic{
+    float: left;
 }

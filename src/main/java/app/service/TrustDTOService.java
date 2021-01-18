@@ -31,7 +31,6 @@ public class TrustDTOService {
         Iterator<Trader> traderIterator = traders.iterator();
         while (traderIterator.hasNext()){
             trustRepository.save(new Trust(fighter,traderIterator.next(),1));
-            System.out.println(traderIterator.next().getCallsign());
         }
         System.out.println("Траст для трейдера создан");
     }
