@@ -125,7 +125,7 @@ public class CreateData {
         }
 
         Armor armor1 = new Armor("PACA", 2, "Арамид", 40);
-        Armor armor2 = new Armor("6Б5-15 \"Улей\"", 4, "Керамика", 50);
+        Armor armor2 = new Armor("6Б5-15 Улей", 4, "Керамика", 50);
         Armor armor3 = new Armor("6Б43", 3, "Баллистическая сталь", 47);
         Armor armor4 = new Armor("6Б3ТМ-01М", 4, "Титан", 50);
 
