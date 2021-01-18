@@ -39,17 +39,21 @@ public class TraderDTOService {
 
     public String buyItem(String name, TraderInventory request, HttpServletResponse httpServletResponse) throws IOException {
         if (traderInventoryRepository.findTI(request.getId()) == null){
-            httpServletResponse.sendError(418, "несуществующее говно");
+            httpServletResponse.sendError(418, "Попытка купить несуществуюющий товар");
             return "Несущ. говно";
         } else {
         double price = traderInventoryRepository.findTI(request.getId()).getPrice();
         if (traderInventoryRepository.findTI(request.getId()).getAmount() < request.getAmount()){
-            httpServletResponse.sendError(418,"Столько нет в наличии");
+            httpServletResponse.sendError(418,"Столько нет в наличии милок");
             return "Столько нет в наличии";
         } else if(fighterRepository.findByCallsign(name).get(0).getMoney() < price * request.getAmount()){
-            httpServletResponse.sendError(418,"Столько нет денег");
+            httpServletResponse.sendError(418,"У тебя денег не хватает милок");
             return "Столько нет денег";
-        } else {
+        } else if (request.getAmount() == 0){
+            httpServletResponse.sendError(418,"А покупать то будем или тебе 0 продать?");
+            return "Попытка купить 0 шт.";
+        }
+            else {
             traderInventoryRepository.updateInventoryTrader(request.getId(), request.getAmount());
             traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(request.getId()), price * request.getAmount());
             fighterRepository.updateMoneyAfterBuying(name, price * request.getAmount());
