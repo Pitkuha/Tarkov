@@ -13,77 +13,89 @@
 </head>
 <body>
     <div id="app">
-        <div id="userInfo">
-            Позывной: {{userInfoTraderPage.callsign}} <br>
-            Деньги: {{animatedFighterMoney}}
-        </div>
-        <div id="traderInfo">
-            <p v-if="buyFlag" class="speech">Отличная сделка!</p> <br>
-            <img  v-if="trader=='Prapor'" src="picture/prapor.png">
-            <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
-            <img  v-if="trader=='Skupshik'" src="picture/skupshik.png">
-            <img  v-if="trader=='Lizhnik'" src="picture/lizhnik.png">
-            <img  v-if="trader=='Mirotvorec'" src="picture/mirotvorec.png">
-            <img  v-if="trader=='Mechanic'" src="picture/mechanic.png">
-            <img  v-if="trader=='Barah'" src="picture/barac.png">
-            <img  v-if="trader=='Eger'" src="picture/eger.png">
-           <br> Имя: {{trader}} <br>
-        Деньги: {{ animatedTraderMoney }} <br>
-        </div>
-        <div id="items">
-        <ol class="square">
-            <li class="item" v-if="item.amount" v-for="item in inventory">
-                <p v-if="item.medicine_id">
-                    Название: {{item.medicine_id.name}} <br>
-                    Запас здоровья: {{item.medicine_id.healt_resource}} <br>
-                </p>
-                <p v-if="item.weapon_id">
-                    Название: {{item.weapon_id.name}} <br>
-                    Тип: {{item.weapon_id.type}} <br>
-                    Точность: {{item.weapon_id.accuracy}} <br>
-                    Эргономикс: {{item.weapon_id.ergonomics}} <br>
-                    Начальная скорость: {{item.weapon_id.starting_speed}} <br>
-                    Калибр: {{item.weapon_id.caliber}} <br>
-                    Состояние: {{item.weapon_id.technical_condition}} <br>
-                </p>
-                <p v-if="item.ammunition_id">
-                    Боеприпас <br>
-                    Калибр: {{item.ammunition_id.caliber}} <br>
-                    Скорость: {{item.ammunition_id.bullet_speed}} <br>
-                </p>
-                <p v-if="item.helmet_id">
-                    Название: {{item.helmet_id.name}} <br>
-                    Материал: {{item.helmet_id.material}} <br>
-                    Класс армора: {{item.helmet_id.armor_class}} <br>
-                    Очки брони: {{item.helmet_id.armor_point}} <br>
-                    Шанс рикошета: {{item.helmet_id.ricochet_chance}} <br>
-                </p>
-                <p v-if="item.provision_id">
-                    Название: {{item.provision_id.name}} <br>
-                    Энергия: {{item.provision_id.energy}} <br>
-                </p>
-                <p v-if="item.armor_id">
-                    Название: {{item.armor_id.name}} <br>
-                    Материал: {{item.armor_id.material}} <br>
-                    Класс армора: {{item.armor_id.armor_class}} <br>
-                    Очки брони: {{item.armor_id.armor_point}} <br>
-                </p>
-                <p v-if="item.magazine_id">
-                    Магазин <br>
-                    Эргономикс: {{item.magazine_id.ergonomics}} <br>
-                    Калибр: {{item.magazine_id.caliber}} <br>
-                </p>
-                <p>Количество: {{item.amount}} <br>
-                    Цена: {{item.price}} <br></p>
-                <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
-                <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
-            </li>
-            <p v-if="!inventory.length" id="noItems">У продавца в текущий момент нет товаров, возвращайтесь позднее</p>
-            <p v-if="error_msg" id="error"> {{error_msg}}</p>
+        <table>
+            <tr>
+                <td>
+                    <div id="userInfo">
+                        Позывной: {{userInfoTraderPage.callsign}} <br>
+                        Деньги: {{animatedFighterMoney}}
+                    </div>
+                    <div id="traderInfo">
+                        <p v-if="buyFlag" class="speech">Отличная сделка!</p> <br>
+                        <img  v-if="trader=='Prapor'" src="picture/prapor.png">
+                        <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
+                        <img  v-if="trader=='Skupshik'" src="picture/skupshik.png">
+                        <img  v-if="trader=='Lizhnik'" src="picture/lizhnik.png">
+                        <img  v-if="trader=='Mirotvorec'" src="picture/mirotvorec.png">
+                        <img  v-if="trader=='Mechanic'" src="picture/mechanic.png">
+                        <img  v-if="trader=='Barah'" src="picture/barac.png">
+                        <img  v-if="trader=='Eger'" src="picture/eger.png">
+                        <br> Имя: {{trader}} <br>
+                        Деньги: {{ animatedTraderMoney }} <br>
+                    </div>
+                </td>
+                <td>
+                    <div id="items">
+                        <ol class="square">
+                            <li class="item" v-if="item.amount" v-for="item in inventory">
+                                <p v-if="item.medicine_id">
+                                    Название: {{item.medicine_id.name}} <br>
+                                    Запас здоровья: {{item.medicine_id.healt_resource}} <br>
+                                </p>
+                                <p v-if="item.weapon_id">
+                                    Название: {{item.weapon_id.name}} <br>
+                                    Тип: {{item.weapon_id.type}} <br>
+                                    Точность: {{item.weapon_id.accuracy}} <br>
+                                    Эргономикс: {{item.weapon_id.ergonomics}} <br>
+                                    Начальная скорость: {{item.weapon_id.starting_speed}} <br>
+                                    Калибр: {{item.weapon_id.caliber}} <br>
+                                    Состояние: {{item.weapon_id.technical_condition}} <br>
+                                </p>
+                                <p v-if="item.ammunition_id">
+                                    Боеприпас <br>
+                                    Калибр: {{item.ammunition_id.caliber}} <br>
+                                    Скорость: {{item.ammunition_id.bullet_speed}} <br>
+                                </p>
+                                <p v-if="item.helmet_id">
+                                    Название: {{item.helmet_id.name}} <br>
+                                    Материал: {{item.helmet_id.material}} <br>
+                                    Класс армора: {{item.helmet_id.armor_class}} <br>
+                                    Очки брони: {{item.helmet_id.armor_point}} <br>
+                                    Шанс рикошета: {{item.helmet_id.ricochet_chance}} <br>
+                                </p>
+                                <p v-if="item.provision_id">
+                                    Название: {{item.provision_id.name}} <br>
+                                    Энергия: {{item.provision_id.energy}} <br>
+                                </p>
+                                <p v-if="item.armor_id">
+                                    Название: {{item.armor_id.name}} <br>
+                                    Материал: {{item.armor_id.material}} <br>
+                                    Класс армора: {{item.armor_id.armor_class}} <br>
+                                    Очки брони: {{item.armor_id.armor_point}} <br>
+                                </p>
+                                <p v-if="item.magazine_id">
+                                    Магазин <br>
+                                    Эргономикс: {{item.magazine_id.ergonomics}} <br>
+                                    Калибр: {{item.magazine_id.caliber}} <br>
+                                </p>
+                                <p>Количество: {{item.amount}} <br>
+                                    Цена: {{item.price}} <br></p>
+                                <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
+                                <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
+                            </li>
+                            <p v-if="!inventory.length" id="noItems">У продавца в текущий момент нет товаров, возвращайтесь позднее</p>
+                            <p v-if="error_msg" id="error"> {{error_msg}}</p>
 
-        </ol>
-        </div>
-        <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
+                        </ol>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
+                </td>
+            </tr>
+        </table>
     </div>
     <script type="application/javascript">
         var app2 = new Vue({

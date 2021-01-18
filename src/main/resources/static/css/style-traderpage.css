@@ -15,6 +15,10 @@ body {
     font-size: 20px;
     background-color: rgba(46, 49, 49, .5);
 }
+#userInfo{
+    margin-bottom: 100px;
+    font-size: 30px;
+}
 #error{
     color: red;
     font-family: "Trebuchet MS";
