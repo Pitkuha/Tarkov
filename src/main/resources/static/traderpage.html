@@ -17,6 +17,7 @@
             Деньги: {{animatedFighterMoney}}
         </div>
         <div id="traderInfo">
+            <p v-if="buyFlag" class="speech">Отличная сделка!</p> <br>
             <img  v-if="trader=='Prapor'" src="picture/prapor.png">
             <img  v-if="trader=='Terapevt'" src="picture/terapevt.png">
             <img  v-if="trader=='Skupshik'" src="picture/skupshik.png">
@@ -78,6 +79,7 @@
             </li>
             <p v-if="!inventory.length" id="noItems">У продавца в текущий момент нет товаров, возвращайтесь позднее</p>
             <p v-if="error_msg" id="error"> {{error_msg}}</p>
+
         </ol>
         </div>
         <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
@@ -93,7 +95,8 @@
                 amount_of_items:'',
                 error_msg:'',
                 FighterMoney:0,
-                TraderMoney: 0
+                TraderMoney: 0,
+                buyFlag: false
             },
             methods: {
                 getUserInfo: function () {
@@ -115,8 +118,8 @@
                 },
                 buyItem: function (itemId, amountOfItems) {
                         return axios.post('http://localhost:8080/buy', {id: itemId, amount: amountOfItems}).then(response => {
-                            this.error_msg='';
-                        }).catch(error => this.error_msg=error.response.data.message).finally(() => this.getTraderInventory());
+                            this.error_msg=''; this.buyFlag=true;
+                        }).catch(error => {this.error_msg=error.response.data.message; this.buyFlag=false;}).finally(() => this.getTraderInventory());
                 },
 
                 getTraderCallSign: function ()
