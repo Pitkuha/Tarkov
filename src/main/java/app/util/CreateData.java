@@ -40,7 +40,7 @@ public class CreateData {
             //Tasks
             taskRepository.save(new Task("Пикник со стрельбой", 20000, "Уничтожить 15 диких в лесу", 1));
             taskRepository.save(new Task("Гренадёр", 50000, "Уничтожить 12 операторов ЧВК с помощью гранат", 2));
-            taskRepository.save(new Task("Операция \"Водолей\"", 14000, "Найти спрятонную команату с водой в общежитии", 1));
+            taskRepository.save(new Task("Операция Водолей", 14000, "Найти спрятонную команату с водой в общежитии", 1));
             taskRepository.save(new Task("Планы снабжения", 70000, "Найти защищенную папку на Лесопилке", 3));
             taskRepository.save(new Task("Осведомлен, значит вооружён", 90000, "Установить WIFI камеру для наблюдения за причалом. Установить WIFI камеру для наблюдения за дорогой в припортовую зону.", 4));
         }
@@ -78,11 +78,13 @@ public class CreateData {
         Helmet helmet2 = new Helmet("Ратник-БШ",3,"Аллюминий",100,30);
         Helmet helmet3 = new Helmet("Колпак 1",2,"Арамид",100,10);
         Helmet helmet4 = new Helmet("Ops-Core Fast",4,"Комбинированные материалы",100,30);
-        //Helmets
-        helmetRepository.save(helmet1);
-        helmetRepository.save(helmet2);
-        helmetRepository.save(helmet3);
-        helmetRepository.save(helmet4);
+        if (helmetRepository.findAll().isEmpty()) {
+            //Helmets
+            helmetRepository.save(helmet1);
+            helmetRepository.save(helmet2);
+            helmetRepository.save(helmet3);
+            helmetRepository.save(helmet4);
+        }
 
         Ammunition ammunition1 = new Ammunition(7.62, 700);
         Ammunition ammunition2 = new Ammunition(5.45, 883);
