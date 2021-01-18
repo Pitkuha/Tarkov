@@ -26,7 +26,9 @@
             <img  v-if="trader=='Barah'" src="picture/barac.png">
             <img  v-if="trader=='Eger'" src="picture/eger.png">
            <br> Имя: {{trader}} <br>
-        Деньги: {{ animatedTraderMoney }} <br></div>
+        Деньги: {{ animatedTraderMoney }} <br>
+        </div>
+        <div id="items">
         <ol class="square">
             <li class="item" v-if="item.amount" v-for="item in inventory">
                 <p v-if="item.medicine_id">
@@ -74,8 +76,10 @@
                 <input type="number" name="amount" v-model="item.amount_of_items" min="1" v-bind:max="item.amount"> <br>
                 <input type="button" class="but" v-on:click="buyItem(item.id, item.amount_of_items)" value="Купить">
             </li>
+            <p v-if="!inventory.length" id="noItems">У продавца в текущий момент нет товаров, возвращайтесь позднее</p>
             <p v-if="error_msg" id="error"> {{error_msg}}</p>
         </ol>
+        </div>
         <input type="button" id="back" class="but" value="BACK" name="back" onclick="back()">
     </div>
     <script type="application/javascript">

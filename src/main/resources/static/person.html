@@ -67,7 +67,23 @@
     </div>
     <div id="trusts">
         <ul class="square">
-            <li class="item" v-for="trust in trusts">
+            <li class="trust" v-for="trust in trusts">
+                <input v-if="trust.name==='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
+                       onclick="gotrader('Prapor')">
+                <input v-if="trust.name==='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
+                       onclick="gotrader('Terapevt')">
+                <input v-if="trust.name==='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
+                       onclick="gotrader('Skupshik')">
+                <input v-if="trust.name==='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
+                       onclick="gotrader('Lizhnik')">
+                <input v-if="trust.name==='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
+                       name="miro" onclick="gotrader('Mirotvorec')">
+                <input v-if="trust.name==='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
+                       name="mechanic" onclick="gotrader('Mechanic')">
+                <input v-if="trust.name==='Baracholshik'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
+                       onclick="gotrader('Barah')">
+                <input v-if="trust.name==='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
+                <br>
                 Позывной: {{trust.name}} <br>
                 Уровень доверия: {{trust.trustLvl}} <br>
             </li>
@@ -111,6 +127,9 @@
 <script>
     function back() {
         window.location = "AfterAvtor.html"
+    }
+    function gotrader(trader) {
+        window.location = "traderpage.html?callsign=" + trader
     }
 </script>
 </body>
