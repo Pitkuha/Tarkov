@@ -30,7 +30,7 @@ body {
     font-size: 20px;
     background-color: rgba(46, 49, 49, .5);
 }
-#userInfo{
+#userInfo, #noCurrentTask{
     color: white;
     font-family: "Trebuchet MS";
     font-size: 20px;

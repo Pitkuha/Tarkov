@@ -12,51 +12,69 @@
 </head>
 <body>
 <div id="app" class="bubu">
-    <div id="userInfo">
-        <p>Позывной: {{userInfo.callsign}}<br>
-            Деньги: {{animatedFighterMoney}}<br></p>
-    </div>
-    <p class="task">Текущее задание:<br>
-        Название: {{currentTask.name}} <br>
-        Описание: {{currentTask.description}} <br>
-        Награда: {{currentTask.reward}} <br>
-        <img v-if="currentTask.name=='Дефицит'" src="picture/deficit.png">
-        <img v-if="currentTask.name=='Проба пера'" src="picture/proba_pera.png">
-        <br>
-        <button v-on:click="taskCompleted" class="choose">Выполнить</button> <br>
-    <p v-if="!currentTask" id="error">{{errorTaskCompleted}}</p>
-    <div id="tasks">
-    <ul class="square">
-        <li class="task" v-for="task in tasks">
-            Название: {{task.name}} <br>
-            Описание: {{task.description}} <br>
-            Награда: {{task.reward}} <br>
-            Владелец: {{task.callSign}} <br>
-            <input v-if="task.callSign==='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
-                   onclick="gotrader('Prapor')">
-            <input v-if="task.callSign==='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
-                   onclick="gotrader('Terapevt')">
-            <input v-if="task.callSign==='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
-                   onclick="gotrader('Skupshik')">
-            <input v-if="task.callSign==='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
-                   onclick="gotrader('Lizhnik')">
-            <input v-if="task.callSign==='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
-                   name="miro" onclick="gotrader('Mirotvorec')">
-            <input v-if="task.callSign==='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
-                   name="mechanic" onclick="gotrader('Mechanic')">
-            <input v-if="task.callSign==='Baracholshik'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
-                   onclick="gotrader('Barah')">
-            <input v-if="task.callSign==='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
-            <br>
-            <button v-on:click="takeTask(task.id)" class="choose">Выбрать</button>
-        </li>
+    <table>
+        <tr>
+            <td>
+                <div id="userInfo">
+                    <p>Позывной: {{userInfo.callsign}}<br>
+                        Деньги: {{animatedFighterMoney}}<br></p>
+                </div>
+                <div v-if="currentTask" id="currentTask">
+                    <p class="task">Текущее задание:<br>
+                        Название: {{currentTask.name}} <br>
+                        Описание: {{currentTask.description}} <br>
+                        Награда: {{currentTask.reward}} <br>
+                        <img v-if="currentTask.name==='Пикник со стрельбой'" src="picture/tasks/Picnik.jpg">
+                        <img v-if="currentTask.name==='Гренадёр'" src="picture/tasks/grenader.jpg">
+                        <img v-if="currentTask.name==='Осведомлен, значит вооружён'" src="picture/tasks/osv_znach.jpg">
+                        <img v-if="currentTask.name==='Планы снабжения'" src="picture/tasks/plani_snabzh.jpg">
+                        <img v-if="currentTask.name==='Операция Водолей'" src="picture/tasks/vodoley.jpg">
+                        <br>
+                        <button v-on:click="taskCompleted" class="choose">Выполнить</button> <br>
+                </div>
+                <div id="noCurrentTask" v-else>Нет активных заданий</div>
+                <p v-if="!currentTask" id="error">{{errorTaskCompleted}}</p>
+            </td>
+            <td>
+                <div id="tasks">
+                    <ul class="square">
+                        <li class="task" v-for="task in tasks">
+                            Название: {{task.name}} <br>
+                            Описание: {{task.description}} <br>
+                            Награда: {{task.reward}} <br>
+                            Владелец: {{task.callSign}} <br>
+                            <input v-if="task.callSign==='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
+                                   onclick="gotrader('Prapor')">
+                            <input v-if="task.callSign==='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
+                                   onclick="gotrader('Terapevt')">
+                            <input v-if="task.callSign==='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
+                                   onclick="gotrader('Skupshik')">
+                            <input v-if="task.callSign==='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
+                                   onclick="gotrader('Lizhnik')">
+                            <input v-if="task.callSign==='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
+                                   name="miro" onclick="gotrader('Mirotvorec')">
+                            <input v-if="task.callSign==='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
+                                   name="mechanic" onclick="gotrader('Mechanic')">
+                            <input v-if="task.callSign==='Baracholshik'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
+                                   onclick="gotrader('Barah')">
+                            <input v-if="task.callSign==='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
+                            <br>
+                            <button v-on:click="takeTask(task.id)" class="choose">Выбрать</button>
+                        </li>
 
-    </ul>
-    </div>
-    <input type="button" id="back" value="BACK" name="back" onclick="back()">
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" id="back" value="BACK" name="back" onclick="back()">
+            </td>
+        </tr>
+    </table>
 </div>
 <script type="application/javascript">
-    new Vue({
+    var app3 = new Vue({
         el: '#app',
         data: {
             userInfo:'',
