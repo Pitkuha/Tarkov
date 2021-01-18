@@ -79,11 +79,14 @@ public class CreateData {
         Helmet helmet3 = new Helmet("Колпак 1",2,"Арамид",100,10);
         Helmet helmet4 = new Helmet("Ops-Core Fast",4,"Комбинированные материалы",100,30);
         //Helmets
+        if (helmetRepository.findAll().isEmpty()){
+
+
         helmetRepository.save(helmet1);
         helmetRepository.save(helmet2);
         helmetRepository.save(helmet3);
         helmetRepository.save(helmet4);
-
+        }
         Ammunition ammunition1 = new Ammunition(7.62, 700);
         Ammunition ammunition2 = new Ammunition(5.45, 883);
         Ammunition ammunition3 = new Ammunition(7, 415);
