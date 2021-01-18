@@ -11,85 +11,107 @@
 </head>
 <body>
 <div id ="app">
-    <div id="UserInfo">
-        <p>Позывной: {{userInfo.callsign}}<br>
-           Деньги: {{userInfo.money}}<br></p>
-    </div>
-    <div id="items">
+    <table>
+        <tr>
+            <td>
+                <div id="UserInfo">
+                    <p>Позывной: {{userInfo.callsign}}<br>
+                        Деньги: {{userInfo.money}}<br></p>
+                </div>
+                <div id="trusts">
+                    <ul class="square">
+                        <li class="trust" v-for="trust in trusts">
+                            <input v-if="trust.name==='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
+                                   onclick="gotrader('Prapor')">
+                            <input v-if="trust.name==='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
+                                   onclick="gotrader('Terapevt')">
+                            <input v-if="trust.name==='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
+                                   onclick="gotrader('Skupshik')">
+                            <input v-if="trust.name==='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
+                                   onclick="gotrader('Lizhnik')">
+                            <input v-if="trust.name==='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
+                                   name="miro" onclick="gotrader('Mirotvorec')">
+                            <input v-if="trust.name==='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
+                                   name="mechanic" onclick="gotrader('Mechanic')">
+                            <input v-if="trust.name==='Baracholshik'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
+                                   onclick="gotrader('Barah')">
+                            <input v-if="trust.name==='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
+                            <br>
+                            Позывной: {{trust.name}} <br>
+                            Уровень доверия: {{trust.trustLvl}} <br>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td colspan="2">
+                <div id="items">
 
-    <ol class="square">
-        <li class="item" v-for="item in items">
-            <p v-if="item.medicine_id">
-                Название: {{item.medicine_id.name}} <br>
-                Запас здоровья: {{item.medicine_id.healt_resource}} <br>
+                    <ol class="square">
+                        <li class="item" v-for="item in items">
+                            <table>
+                                <tr>
+                                    <td><img src="picture/prapor.png"></td>
+                                    <td width="600px" style="text-align: center"><p v-if="item.medicine_id">
+                                        Название: {{item.medicine_id.name}} <br>
+                                        Запас здоровья: {{item.medicine_id.healt_resource}} <br>
 
-            </p>
-            <p v-if="item.weapon_id">
-                Название: {{item.weapon_id.name}} <br>
-                Тип: {{item.weapon_id.type}} <br>
-                Точность: {{item.weapon_id.accuracy}} <br>
-                Эргономикс: {{item.weapon_id.ergonomics}} <br>
-                Начальная скорость: {{item.weapon_id.starting_speed}} <br>
-                Калибр: {{item.weapon_id.caliber}} <br>
-                Состояние: {{item.weapon_id.technical_condition}} <br>
-            </p>
-            <p v-if="item.ammunition_id">
-                Боеприпас <br>
-                Калибр: {{item.ammunition_id.caliber}} <br>
-                Скорость: {{item.ammunition_id.bullet_speed}} <br>
-            </p>
-            <p v-if="item.helmet_id">
-                Название: {{item.helmet_id.name}} <br>
-                Материал: {{item.helmet_id.material}} <br>
-                Класс армора: {{item.helmet_id.armor_class}} <br>
-                Очки брони: {{item.helmet_id.armor_point}} <br>
-                Шанс рикошета: {{item.helmet_id.ricochet_chance}} <br>
-            </p>
-            <p v-if="item.provision_id">
-                Название: {{item.provision_id.name}} <br>
-                Энергия: {{item.provision_id.energy}} <br>
-            </p>
-            <p v-if="item.armor_id">
-                Название: {{item.armor_id.name}} <br>
-                Материал: {{item.armor_id.material}} <br>
-                Класс армора: {{item.armor_id.armor_class}} <br>
-                Очки брони: {{item.armor_id.armor_point}} <br>
-            </p>
-            <p v-if="item.magazine_id">
-                Магазин <br>
-                Эргономикс: {{item.magazine_id.ergonomics}} <br>
-                Калибр: {{item.magazine_id.caliber}} <br>
-            </p>
-            <p>Количество: {{item.amount}}</p>
-        </li>
-    </ol>
+                                    </p>
+                                        <p v-if="item.weapon_id">
+                                            Название: {{item.weapon_id.name}} <br>
+                                            Тип: {{item.weapon_id.type}} <br>
+                                            Точность: {{item.weapon_id.accuracy}} <br>
+                                            Эргономикс: {{item.weapon_id.ergonomics}} <br>
+                                            Начальная скорость: {{item.weapon_id.starting_speed}} <br>
+                                            Калибр: {{item.weapon_id.caliber}} <br>
+                                            Состояние: {{item.weapon_id.technical_condition}} <br>
+                                        </p>
+                                        <p v-if="item.ammunition_id">
+                                            Боеприпас <br>
+                                            Калибр: {{item.ammunition_id.caliber}} <br>
+                                            Скорость: {{item.ammunition_id.bullet_speed}} <br>
+                                        </p>
+                                        <p v-if="item.helmet_id">
+                                            Название: {{item.helmet_id.name}} <br>
+                                            Материал: {{item.helmet_id.material}} <br>
+                                            Класс армора: {{item.helmet_id.armor_class}} <br>
+                                            Очки брони: {{item.helmet_id.armor_point}} <br>
+                                            Шанс рикошета: {{item.helmet_id.ricochet_chance}} <br>
+                                        </p>
+                                        <p v-if="item.provision_id">
+                                            Название: {{item.provision_id.name}} <br>
+                                            Энергия: {{item.provision_id.energy}} <br>
+                                        </p>
+                                        <p v-if="item.armor_id">
+                                            Название: {{item.armor_id.name}} <br>
+                                            Материал: {{item.armor_id.material}} <br>
+                                            Класс армора: {{item.armor_id.armor_class}} <br>
+                                            Очки брони: {{item.armor_id.armor_point}} <br>
+                                        </p>
+                                        <p v-if="item.magazine_id">
+                                            Магазин <br>
+                                            Эргономикс: {{item.magazine_id.ergonomics}} <br>
+                                            Калибр: {{item.magazine_id.caliber}} <br>
+                                        </p>
+                                        <p>Количество: {{item.amount}}</p></td>
+                                </tr>
+                            </table>
 
-    </div>
-    <div id="trusts">
-        <ul class="square">
-            <li class="trust" v-for="trust in trusts">
-                <input v-if="trust.name==='Prapor'" type="button" id="prapor" class="but" value="PRAPOR" name="prap"
-                       onclick="gotrader('Prapor')">
-                <input v-if="trust.name==='Terapevt'" type="button" id="terapevt" class="but" value="TERAPEVT" name="tera"
-                       onclick="gotrader('Terapevt')">
-                <input v-if="trust.name==='Skupshik'" type="button" id="skupshik" class="but" value="SKUPSHIK" name="skup"
-                       onclick="gotrader('Skupshik')">
-                <input v-if="trust.name==='Lizhnik'" type="button" id="lizhnik" class="but" value="LIZHNIK" name="lizh"
-                       onclick="gotrader('Lizhnik')">
-                <input v-if="trust.name==='Mirotvorec'" type="button" id="mirotvorec" class="but" value="MIROTVOREC"
-                       name="miro" onclick="gotrader('Mirotvorec')">
-                <input v-if="trust.name==='Mechanic'" type="button" id="mechanic" class="but" value="MECHANIC"
-                       name="mechanic" onclick="gotrader('Mechanic')">
-                <input v-if="trust.name==='Baracholshik'" type="button" id="barah" class="but" value="BARACHOLSHIK" name="bara"
-                       onclick="gotrader('Barah')">
-                <input v-if="trust.name==='Eger'" type="button" id="eger" class="but" value="EGER" name="eger" onclick="gotrader('Eger')">
-                <br>
-                Позывной: {{trust.name}} <br>
-                Уровень доверия: {{trust.trustLvl}} <br>
-            </li>
-        </ul>
-    </div>
-    <input type="button" id="back" value="BACK" name="back" onclick="back()">
+
+
+                        </li>
+                    </ol>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="button" id="back" value="BACK" name="back" onclick="back()"></td>
+        </tr>
+    </table>
+
+
+
+
 </div>
 <script type="application/javascript">
     new Vue({
