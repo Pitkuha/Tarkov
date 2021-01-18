@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <div id="app">
@@ -118,7 +119,8 @@
                 },
                 buyItem: function (itemId, amountOfItems) {
                         return axios.post('http://localhost:8080/buy', {id: itemId, amount: amountOfItems}).then(response => {
-                            this.error_msg=''; this.buyFlag=true;
+                            this.error_msg=''; this.buyFlag=true; var snd = new Audio("Sound_16337.mp3"); // buffers automatically when created
+                            snd.play();
                         }).catch(error => {this.error_msg=error.response.data.message; this.buyFlag=false;}).finally(() => this.getTraderInventory());
                 },
 
@@ -144,10 +146,10 @@
             },
             watch: {
                 money: function(newValue) {
-                    gsap.to(this.$data, { duration: 1, TraderMoney: newValue });
+                    gsap.to(this.$data, { duration: 2, TraderMoney: newValue });
                 },
                 fighterBank: function(newValue) {
-                    gsap.to(this.$data, { duration: 1, FighterMoney: newValue });
+                    gsap.to(this.$data, { duration: 2, FighterMoney: newValue });
                 }
             },
             mounted() {
