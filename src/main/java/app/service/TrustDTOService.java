@@ -6,6 +6,7 @@ import app.domain.Trust;
 import app.repository.FighterRepository;
 import app.repository.TraderRepository;
 import app.repository.TrustRepository;
+import app.util.Trusts;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
@@ -33,5 +34,9 @@ public class TrustDTOService {
             System.out.println(traderIterator.next().getCallsign());
         }
         System.out.println("Траст для трейдера создан");
+    }
+
+    public List<Trusts> getTrusts(String name){
+        return trustRepository.getTrusts(fighterRepository.findByCallsign(name).get(0));
     }
 }

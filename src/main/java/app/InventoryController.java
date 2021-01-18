@@ -3,8 +3,11 @@ package app;
 import app.domain.FighterInventory;
 import app.domain.Trader;
 import app.domain.TraderInventory;
+import app.domain.Trust;
 import app.service.FighterDTOService;
 import app.service.TraderDTOService;
+import app.service.TrustDTOService;
+import app.util.Trusts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,9 @@ public class InventoryController {
 
     @Autowired
     private FighterDTOService fighterDTOService;
+
+    @Autowired
+    private TrustDTOService trustDTOService;
 
     @GetMapping("/TraderInventory")
     public List<TraderInventory> getTraderInventory(@RequestParam(name = "callsign", required = true) String callsign, HttpServletResponse response) throws IOException {
@@ -42,5 +48,10 @@ public class InventoryController {
     @GetMapping("/getTrader")
     public Trader getTrader(@RequestParam(name = "callsign", required = true) String request, HttpServletResponse httpServletResponse) throws IOException {
         return traderDTOService.getTrader(request, httpServletResponse);
+    }
+
+    @GetMapping("/getTrusts")
+    public List<Trusts> getTrusts(Principal principal){
+        return trustDTOService.getTrusts(principal.getName());
     }
 }

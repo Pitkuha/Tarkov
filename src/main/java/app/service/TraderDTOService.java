@@ -3,10 +3,7 @@ package app.service;
 import app.domain.FighterInventory;
 import app.domain.Trader;
 import app.domain.TraderInventory;
-import app.repository.FighterInventoryRepository;
-import app.repository.FighterRepository;
-import app.repository.TraderInventoryRepository;
-import app.repository.TraderRepository;
+import app.repository.*;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,12 +16,14 @@ public class TraderDTOService {
     private final TraderInventoryRepository traderInventoryRepository;
     private final FighterRepository fighterRepository;
     private final FighterInventoryRepository fighterInventoryRepository;
+    private final TrustRepository trustRepository;
 
-    public TraderDTOService(TraderRepository traderRepository, TraderInventoryRepository traderInventoryRepository, FighterRepository fighterRepository, FighterInventoryRepository fighterInventoryRepository) {
+    public TraderDTOService(TraderRepository traderRepository, TraderInventoryRepository traderInventoryRepository, FighterRepository fighterRepository, FighterInventoryRepository fighterInventoryRepository, TrustRepository trustRepository) {
         this.traderRepository = traderRepository;
         this.traderInventoryRepository = traderInventoryRepository;
         this.fighterRepository = fighterRepository;
         this.fighterInventoryRepository = fighterInventoryRepository;
+        this.trustRepository = trustRepository;
     }
 
     public List<TraderInventory> getAllInventory(String name, HttpServletResponse response) throws IOException {
@@ -54,6 +53,11 @@ public class TraderDTOService {
             traderInventoryRepository.updateInventoryTrader(request.getId(), request.getAmount());
             traderRepository.updateTraderMoney(traderInventoryRepository.findByTraderInvId(request.getId()), price * request.getAmount());
             fighterRepository.updateMoneyAfterBuying(name, price * request.getAmount());
+            if (request.getAmount() * price >= 100000){
+                if(trustRepository.checkTrustLvl(traderInventoryRepository.findTI(request.getId()).getTraderId(),fighterRepository.findByCallsign(name).get(0)) < 4) {
+                    trustRepository.updateTrust(traderInventoryRepository.findTI(request.getId()).getTraderId(), fighterRepository.findByCallsign(name).get(0));
+                }
+            }
             if (fighterRepository.checkExists(fighterRepository.findByCallsign(name).get(0)
                     , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
                     , traderInventoryRepository.findTI(request.getId()).getArmor_id()

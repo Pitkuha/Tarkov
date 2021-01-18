@@ -1,6 +1,8 @@
 package app.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Trust")
@@ -16,6 +18,8 @@ public class Trust {
     @JoinColumn(name = "trader_id", referencedColumnName = "id")
     private Trader trader_id;
 
+    @NotNull
+    @Max(value = 4)
     @Column(name = "Trust_Level")
     private int trust_level;
 

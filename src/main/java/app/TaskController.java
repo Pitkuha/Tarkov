@@ -37,7 +37,7 @@ public class TaskController {
         if (taskDTOService.checkCurrentTask(principal.getName())) {
             taskDTOService.takeTask(request, principal.getName());
         } else {
-            response.sendError(418);
+            response.sendError(418,"Task уже взят");
         }
         return "ok";
     }
