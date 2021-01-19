@@ -69,7 +69,7 @@ public class CreateData {
             //TraderTasks
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Пикник со стрельбой")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Гренадёр")));
-            traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Terapevt").get(0), taskRepository.foundTask("Операция \"Водолей\"")));
+            traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Terapevt").get(0), taskRepository.foundTask("Операция Водолей")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Terapevt").get(0), taskRepository.foundTask("Планы снабжения")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Lizhnik").get(0), taskRepository.foundTask("Осведомлен, значит вооружён")));
         }

@@ -21,7 +21,10 @@
                         Деньги: {{animatedFighterMoney}}
                     </div>
                     <div id="traderInfo">
-                        <p v-if="buyFlag" class="speech">Отличная сделка!</p> <br>
+                        <div v-if="traderPhrase" class="speechWrapper">
+                            <span  class="speech"> {{traderPhrase}}</span>
+                        </div>
+
                         <img  v-if="trader==='Prapor'" src="picture/prapor.png">
                         <img  v-if="trader==='Terapevt'" src="picture/terapevt.png">
                         <img  v-if="trader==='Skupshik'" src="picture/skupshik.png">
@@ -145,7 +148,7 @@
                 error_msg:'',
                 FighterMoney:0,
                 TraderMoney: 0,
-                buyFlag: false
+                traderPhrase:''
             },
             methods: {
                 getUserInfo: function () {
@@ -167,9 +170,9 @@
                 },
                 buyItem: function (itemId, amountOfItems) {
                         return axios.post('http://localhost:8080/buy', {id: itemId, amount: amountOfItems}).then(response => {
-                            this.error_msg=''; this.buyFlag=true; var snd = new Audio("Sound_16337.mp3"); // buffers automatically when created
+                            this.error_msg=''; this.traderPhrase='Отличная сделка!'; var snd = new Audio("Sound_16337.mp3"); // buffers automatically when created
                             snd.play();
-                        }).catch(error => {this.error_msg=error.response.data.message; this.buyFlag=false;}).finally(() => this.getTraderInventory());
+                        }).catch(error => {this.traderPhrase=error.response.data.message; this.buyFlag=false;}).finally(() => this.getTraderInventory());
                 },
 
                 getTraderCallSign: function ()
