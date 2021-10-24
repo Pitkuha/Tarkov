@@ -1,8 +1,6 @@
 package app;
 
 import app.domain.*;
-import app.repository.TraderInventoryRepository;
-import app.repository.TraderRepository;
 import app.service.FighterDTOService;
 import app.service.TraderDTOService;
 import app.service.TrustDTOService;
@@ -19,16 +17,6 @@ import java.util.List;
 @RestController
 public class InventoryController {
 
-    //
-
-    @Autowired
-    private TraderInventoryRepository traderInventoryRepository;
-
-    @Autowired
-    private TraderRepository traderRepository;
-
-    //
-
     @Autowired
     private TraderDTOService traderDTOService;
 
@@ -40,26 +28,12 @@ public class InventoryController {
 
     @GetMapping("/TraderInventory")
     public List<TraderInventory> getTraderInventory(@RequestParam(name = "callsign", required = true) String callsign, HttpServletResponse response) throws IOException {
-        List<TraderInventory> fromDB;
-        try {
-            fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign(callsign).get(0));
-        }catch (IndexOutOfBoundsException e){
-            fromDB = null;
-            response.sendError(418);
-        }
-        return fromDB;
+        return traderDTOService.getAllInventory(callsign, response);
     }
 
     @GetMapping("/TraderInventoryTest")
     public List<TraderInventory> getTraderInventoryTest(HttpServletResponse response) throws IOException {
-        List<TraderInventory> fromDB;
-        try {
-            fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign("prapor").get(0));
-        }catch (IndexOutOfBoundsException e){
-            fromDB = null;
-            response.sendError(418);
-        }
-        return fromDB;
+        return traderDTOService.getAllInventory("Prapor", response);
     }
 
     @GetMapping("/FighterInventory")
