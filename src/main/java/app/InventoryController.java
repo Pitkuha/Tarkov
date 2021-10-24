@@ -1,6 +1,8 @@
 package app;
 
 import app.domain.*;
+import app.repository.TraderInventoryRepository;
+import app.repository.TraderRepository;
 import app.service.FighterDTOService;
 import app.service.TraderDTOService;
 import app.service.TrustDTOService;
@@ -17,6 +19,16 @@ import java.util.List;
 @RestController
 public class InventoryController {
 
+    //
+
+    @Autowired
+    private TraderInventoryRepository traderInventoryRepository;
+
+    @Autowired
+    private TraderRepository traderRepository;
+
+    //
+
     @Autowired
     private TraderDTOService traderDTOService;
 
@@ -28,7 +40,26 @@ public class InventoryController {
 
     @GetMapping("/TraderInventory")
     public List<TraderInventory> getTraderInventory(@RequestParam(name = "callsign", required = true) String callsign, HttpServletResponse response) throws IOException {
-        return traderDTOService.getAllInventory(callsign, response);
+        List<TraderInventory> fromDB;
+        try {
+            fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign(callsign).get(0));
+        }catch (IndexOutOfBoundsException e){
+            fromDB = null;
+            response.sendError(418);
+        }
+        return fromDB;
+    }
+
+    @GetMapping("/TraderInventoryTest")
+    public List<TraderInventory> getTraderInventoryTest(HttpServletResponse response) throws IOException {
+        List<TraderInventory> fromDB;
+        try {
+            fromDB = traderInventoryRepository.findAllByTraderId(traderRepository.findByCallsign("prapor").get(0));
+        }catch (IndexOutOfBoundsException e){
+            fromDB = null;
+            response.sendError(418);
+        }
+        return fromDB;
     }
 
     @GetMapping("/FighterInventory")
@@ -42,11 +73,6 @@ public class InventoryController {
         return "buy ok!";
     }
 
-    @PostMapping(value = "/buy1", produces = "application/json")
-    public String buyItems1(Principal principal, HttpServletResponse httpServletResponse) throws IOException {
-        traderDTOService.buyItem(principal.getName(),new TraderInventory(new Trader(), new Weapon(), new Ammunition(), new Magazin(), new Medicine(), new Provision(), new Armor(), new Helmet(), 1, 1),httpServletResponse);
-        return "buy ok!";
-    }
     
     @GetMapping("/getTrader")
     public Trader getTrader(@RequestParam(name = "callsign", required = true) String request, HttpServletResponse httpServletResponse) throws IOException {

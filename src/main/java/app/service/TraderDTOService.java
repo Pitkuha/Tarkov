@@ -26,7 +26,7 @@ public class TraderDTOService {
         this.trustRepository = trustRepository;
     }
 
-    //TODO Вынесено в один метод
+    //TODO Дублируемый код. Вынесено в один метод
     //TODO Перемещение метода. Аналогично вынося метод мы ещё перемещаем метод в класс, более подходящий для данного метода, уменьшая связанность между классами
     public List<TraderInventory> getAllInventory(String name, HttpServletResponse response) throws IOException {
         List<TraderInventory> fromDB;
