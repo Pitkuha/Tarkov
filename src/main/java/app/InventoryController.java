@@ -1,9 +1,6 @@
 package app;
 
-import app.domain.FighterInventory;
-import app.domain.Trader;
-import app.domain.TraderInventory;
-import app.domain.Trust;
+import app.domain.*;
 import app.service.FighterDTOService;
 import app.service.TraderDTOService;
 import app.service.TrustDTOService;
@@ -42,6 +39,12 @@ public class InventoryController {
     @PostMapping(value = "/buy", produces = "application/json")
     public String buyItems(@Valid @RequestBody TraderInventory request, Principal principal, HttpServletResponse httpServletResponse) throws IOException {
         traderDTOService.buyItem(principal.getName(),request,httpServletResponse);
+        return "buy ok!";
+    }
+
+    @PostMapping(value = "/buy1", produces = "application/json")
+    public String buyItems1(Principal principal, HttpServletResponse httpServletResponse) throws IOException {
+        traderDTOService.buyItem(principal.getName(),new TraderInventory(new Trader(), new Weapon(), new Ammunition(), new Magazin(), new Medicine(), new Provision(), new Armor(), new Helmet(), 1, 1),httpServletResponse);
         return "buy ok!";
     }
     

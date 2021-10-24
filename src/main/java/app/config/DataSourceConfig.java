@@ -9,17 +9,20 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 public class DataSourceConfig {
+    private final String driverClassName = "org.postgresql.Driver";
+    private final String url = "org.postgresql.Driver";
+    private final String username = "org.postgresql.Driver";
+    private final String password = "org.postgresql.Driver";
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+        dataSourceBuilder.driverClassName(driverClassName);
 //        dataSourceBuilder.url("jdbc:postgresql://localhost:5431/studs");
 //        dataSourceBuilder.username("s265096");
 //        dataSourceBuilder.password("vrm232");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
+        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/TarkovForLeha");
         dataSourceBuilder.username("postgres");
         dataSourceBuilder.password("fooflo");
 

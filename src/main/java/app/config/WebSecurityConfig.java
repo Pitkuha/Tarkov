@@ -16,7 +16,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    public static String SAULT = "$2a$04$ECwy66BXzNelqaygvhxu1u";
+    //TODO Замена числа символьной константой. Заменили магическое непонятное число на понятную константу
+    public static final String SAULT = "$2a$04$ECwy66BXzNelqaygvhxu1u";
 
     @Autowired
     private DataSource dataSource;

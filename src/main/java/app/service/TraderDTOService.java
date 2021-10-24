@@ -26,6 +26,8 @@ public class TraderDTOService {
         this.trustRepository = trustRepository;
     }
 
+    //TODO Вынесено в один метод
+    //TODO Перемещение метода. Аналогично вынося метод мы ещё перемещаем метод в класс, более подходящий для данного метода, уменьшая связанность между классами
     public List<TraderInventory> getAllInventory(String name, HttpServletResponse response) throws IOException {
         List<TraderInventory> fromDB;
         try {
@@ -35,6 +37,40 @@ public class TraderDTOService {
             response.sendError(418);
         }
         return fromDB;
+    }
+
+    //TODO buyItem() Длинный метод
+    //Произвели извлечение метода для сокращения тела метода
+    public void fighterInventorySave(String name,TraderInventory request){
+        fighterInventoryRepository.save(new FighterInventory(fighterRepository.findByCallsign(name).get(0)
+                , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                , request.getAmount()));
+    }
+
+    public void updateAfrerBuying(String name,TraderInventory request){
+        fighterRepository.updateAfterBuying(
+                traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
+                , request.getAmount()
+                , fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0)
+                        , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
+                        , traderInventoryRepository.findTI(request.getId()).getArmor_id()
+                        , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
+                        , traderInventoryRepository.findTI(request.getId()).getProvision_id()
+                        , traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
     }
 
     public String buyItem(String name, TraderInventory request, HttpServletResponse httpServletResponse) throws IOException {
@@ -74,33 +110,9 @@ public class TraderDTOService {
                     , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
                     , traderInventoryRepository.findTI(request.getId()).getProvision_id()
                     , traderInventoryRepository.findTI(request.getId()).getWeapon_id()) == 0) {
-                fighterInventoryRepository.save(new FighterInventory(fighterRepository.findByCallsign(name).get(0)
-                        , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
-                        , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                        , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                        , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                        , traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                        , traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                        , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                        , request.getAmount()));
+                fighterInventorySave(name, request);
             } else {
-                fighterRepository.updateAfterBuying(
-                        traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                        , traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                        , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                        , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                        , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                        , traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                        , traderInventoryRepository.findTI(request.getId()).getWeapon_id()
-                        , request.getAmount()
-                        , fighterRepository.getFighterInventoryId(fighterRepository.findByCallsign(name).get(0)
-                                , traderInventoryRepository.findTI(request.getId()).getAmmunition_id()
-                                , traderInventoryRepository.findTI(request.getId()).getArmor_id()
-                                , traderInventoryRepository.findTI(request.getId()).getHelmet_id()
-                                , traderInventoryRepository.findTI(request.getId()).getMagazine_id()
-                                , traderInventoryRepository.findTI(request.getId()).getMedicine_id()
-                                , traderInventoryRepository.findTI(request.getId()).getProvision_id()
-                                , traderInventoryRepository.findTI(request.getId()).getWeapon_id()).get(0).getId());
+                updateAfrerBuying(name, request);
             }
             return "buyItem() ok!";
             }

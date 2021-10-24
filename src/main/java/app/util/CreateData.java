@@ -34,6 +34,8 @@ public class CreateData {
         this.weaponRepository = weaponRepository;
     }
 
+    //TODO Комментарии
+    //Обновим название методов, для того, чтобы комментарии были излишни
     @PostConstruct
     public void addInTables(){
         if (taskRepository.findAll().isEmpty()) {
@@ -47,7 +49,6 @@ public class CreateData {
 
 
         if (traderRepository.findAll().isEmpty()) {
-            //Traders
             traderRepository.save(new Trader("Prapor", 600000));
             traderRepository.save(new Trader("Terapevt", 600000));
             traderRepository.save(new Trader("Skupshik", 600000));
@@ -66,7 +67,6 @@ public class CreateData {
 //        System.out.println("ready");
 
         if (traderTasksRepository.findAll().isEmpty()) {
-            //TraderTasks
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Пикник со стрельбой")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Гренадёр")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Terapevt").get(0), taskRepository.foundTask("Операция Водолей")));
@@ -79,7 +79,6 @@ public class CreateData {
         Helmet helmet3 = new Helmet("Колпак 1",2,"Арамид",100,10);
         Helmet helmet4 = new Helmet("Ops-Core Fast",4,"Комбинированные материалы",100,30);
         if (helmetRepository.findAll().isEmpty()) {
-            //Helmets
             helmetRepository.save(helmet1);
             helmetRepository.save(helmet2);
             helmetRepository.save(helmet3);
@@ -91,7 +90,6 @@ public class CreateData {
         Ammunition ammunition3 = new Ammunition(7, 415);
         Ammunition ammunition4 = new Ammunition(9, 380);
         if (ammunitionRepository.findAll().isEmpty()) {
-            //Ammunition
             ammunitionRepository.save(ammunition1);
             ammunitionRepository.save(ammunition2);
             ammunitionRepository.save(ammunition3);
@@ -104,7 +102,6 @@ public class CreateData {
         Magazin magazin4 = new Magazin(3, 5.56);
 
         if (magazinRepository.findAll().isEmpty()) {
-            //Magazins
             magazinRepository.save(magazin1);
             magazinRepository.save(magazin2);
             magazinRepository.save(magazin3);
@@ -117,7 +114,6 @@ public class CreateData {
         Medicine medicine4 = new Medicine("Бинт", 10);
 
         if (medicineRepository.findAll().isEmpty()) {
-            //Medicines
             medicineRepository.save(medicine1);
             medicineRepository.save(medicine2);
             medicineRepository.save(medicine3);
@@ -130,7 +126,6 @@ public class CreateData {
         Armor armor4 = new Armor("6Б3ТМ-01М", 4, "Титан", 50);
 
         if (armorRepository.findAll().isEmpty()) {
-            //Armor
             armorRepository.save(armor1);
             armorRepository.save(armor2);
             armorRepository.save(armor3);
@@ -143,7 +138,6 @@ public class CreateData {
         Provision provision4 = new Provision("Сухпай Искра", 80);
 
         if (provisionRepository.findAll().isEmpty()) {
-            //Provision
             provisionRepository.save(provision1);
             provisionRepository.save(provision2);
             provisionRepository.save(provision3);
@@ -156,7 +150,6 @@ public class CreateData {
         Weapon weapon4 = new Weapon("Автомат", "АКМН", 91, 23, 717, 7.62, 100);
 
         if (weaponRepository.findAll().isEmpty()) {
-            //Weapon
             weaponRepository.save(weapon1);
             weaponRepository.save(weapon2);
             weaponRepository.save(weapon3);
@@ -164,57 +157,35 @@ public class CreateData {
         }
 
         if (traderInventoryRepository.findAll().isEmpty()) {
-            //TradersInventory
             List<Trader> traders = traderRepository.findAll();
-            //PRAPOR
-            //Prapor.weapon
             traderInventoryRepository.save(new TraderInventory(traders.get(0), weapon1, null, null, null, null, null, null, 10000, 30000));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), weapon2, null, null, null, null, null, null, 5000, 21500));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), weapon4, null, null, null, null, null, null, 2000, 39900));
-            //Prapor.ammo
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, ammunition1, null, null, null, null, null, 100000, 140));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, ammunition2, null, null, null, null, null, 200000, 100));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, ammunition4, null, null, null, null, null, 400000, 75));
-            //Prapor.magaz
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, null, magazin1, null, null, null, null, 1000, 2000));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, null, magazin2, null, null, null, null, 500, 3000));
             traderInventoryRepository.save(new TraderInventory(traders.get(0), null, null, magazin3, null, null, null, null, 2400, 1500));
-
-            //Terapevt
-            //Terapevt.medicine
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, medicine1, null, null, null, 10000, 5000));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, medicine2, null, null, null, 7500, 7500));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, medicine3, null, null, null, 5000, 12500));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, medicine4, null, null, null, 12000, 2000));
-            //Terapevt.Provision
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, null, provision1, null, null, 1000, 120));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, null, provision2, null, null, 1500, 100));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, null, provision3, null, null, 400, 200));
             traderInventoryRepository.save(new TraderInventory(traders.get(1), null, null, null, null, provision4, null, null, 100, 650));
-
-            //Barach (6)
-            //Barach.armor
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, armor1, null, 700, 13000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, armor2, null, 350, 25000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, armor3, null, 200, 40000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, armor4, null, 500, 36000));
-            //Barach.helmet
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, null, helmet1, 1000, 18000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, null, helmet2, 900, 21000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, null, helmet3, 1500, 8000));
             traderInventoryRepository.save(new TraderInventory(traders.get(6), null, null, null, null, null, null, helmet4, 100, 110000));
-
-            //Miro (4)
-            //Miro.weapon
             traderInventoryRepository.save(new TraderInventory(traders.get(4), weapon3, null, null, null, null, null, null, 400, 24500));
-            //Miro.ammo
             traderInventoryRepository.save(new TraderInventory(traders.get(4), null, ammunition3, null, null, null, null, null, 10000, 85));
-            //Miro.magaz
             traderInventoryRepository.save(new TraderInventory(traders.get(4), null, null, magazin4, null, null, null, null, 1200, 2550));
         }
-//        List<Helmet> helmetList = helmetRepository.findAll();
-//        traderInventoryRepository.save(new TraderInventory(traders.get(0),null,null,null,null,null,null,helmetList.get(0),1000,10000));
-//        traderInventoryRepository.save(new TraderInventory(traders.get(0),null,null,null,null,null,null,helmetList.get(1),1000,5000));
-//        traderInventoryRepository.save(new TraderInventory(traders.get(0),null,null,null,null,null,null,helmetList.get(2),1000,20000));
     }
 }
