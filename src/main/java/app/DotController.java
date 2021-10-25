@@ -23,7 +23,7 @@ public class DotController{
 //    @ResponseBody
     public String addDot(@Valid @RequestBody DotDTO request, BindingResult bindingResult, Principal principal){
         System.out.println(principal.getName());
-        dotDTOService.save(request, principal.getName());
+        dotDTOService.saveDot(request, principal.getName());
         return "ok";
     }
 

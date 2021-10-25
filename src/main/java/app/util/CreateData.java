@@ -20,6 +20,7 @@ public class CreateData {
     private final ArmorRepository armorRepository;
     private final ProvisionRepository provisionRepository;
     private final WeaponRepository weaponRepository;
+
     public CreateData(TraderRepository traderRepository, TaskRepository taskRepository, TraderTasksRepository traderTasksRepository, HelmetRepository helmetRepository, TraderInventoryRepository traderInventoryRepository, AmmunitionRepository ammunitionRepository, MagazinRepository magazinRepository, MedicineRepository medicineRepository, ArmorRepository armorRepository, ProvisionRepository provisionRepository, WeaponRepository weaponRepository) {
         this.traderRepository = traderRepository;
         this.taskRepository = taskRepository;
@@ -37,9 +38,8 @@ public class CreateData {
     //TODO Комментарии
     //Обновим название методов, для того, чтобы комментарии были излишни
     @PostConstruct
-    public void addInTables(){
+    public void addInTables() {
         if (taskRepository.findAll().isEmpty()) {
-            //Tasks
             taskRepository.save(new Task("Пикник со стрельбой", 20000, "Уничтожить 15 диких в лесу", 1));
             taskRepository.save(new Task("Гренадёр", 50000, "Уничтожить 12 операторов ЧВК с помощью гранат", 2));
             taskRepository.save(new Task("Операция Водолей", 14000, "Найти спрятонную команату с водой в общежитии", 1));
@@ -59,13 +59,6 @@ public class CreateData {
             traderRepository.save(new Trader("Eger", 600000));
         }
 
-//        List<Trader> traders = traderRepository.findAll();
-//        List<Task> tasks = taskRepository.findAll();
-//        traders.stream().forEach((trader -> {
-//            tasks.stream().forEach((task -> {traderTasksRepository.save(new TraderTasks(trader,task));}));
-//        }));
-//        System.out.println("ready");
-
         if (traderTasksRepository.findAll().isEmpty()) {
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Пикник со стрельбой")));
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Prapor").get(0), taskRepository.foundTask("Гренадёр")));
@@ -74,10 +67,10 @@ public class CreateData {
             traderTasksRepository.save(new TraderTasks(traderRepository.findByCallsign("Lizhnik").get(0), taskRepository.foundTask("Осведомлен, значит вооружён")));
         }
 
-        Helmet helmet1 = new Helmet("СШ-68",3,"Баллистическая сталь",100,30);
-        Helmet helmet2 = new Helmet("Ратник-БШ",3,"Аллюминий",100,30);
-        Helmet helmet3 = new Helmet("Колпак 1",2,"Арамид",100,10);
-        Helmet helmet4 = new Helmet("Ops-Core Fast",4,"Комбинированные материалы",100,30);
+        Helmet helmet1 = new Helmet("СШ-68", 3, "Баллистическая сталь", 100, 30);
+        Helmet helmet2 = new Helmet("Ратник-БШ", 3, "Аллюминий", 100, 30);
+        Helmet helmet3 = new Helmet("Колпак 1", 2, "Арамид", 100, 10);
+        Helmet helmet4 = new Helmet("Ops-Core Fast", 4, "Комбинированные материалы", 100, 30);
         if (helmetRepository.findAll().isEmpty()) {
             helmetRepository.save(helmet1);
             helmetRepository.save(helmet2);

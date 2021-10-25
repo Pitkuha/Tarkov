@@ -25,16 +25,16 @@ public class DotDTOService {
         this.longMBean = longMBean;
     }
 
-    public void save(DotDTO dots, String owner) {
+    public void saveDot(DotDTO dots, String owner) {
         List<Dot> dotList = dotManipulationBean.dotListFromRequest(dots,owner);
         for (Dot d : dotList) {
             longMBean.incPoints(1);
-            if (d.isResult() == true) longMBean.incPointsInArea(1);
+            if (d.isResult()) longMBean.incPointsInArea(1);
             dotRepository.save(d);
             System.out.println(d);
         }
-
     }
+
     public List<DotDTO> loadUsersDots(String name) {
         List<Dot> fromDB = dotRepository.findAllByOwner(userRepository.findByUsername(name));
         List<DotDTO> toClient = new ArrayList<>();

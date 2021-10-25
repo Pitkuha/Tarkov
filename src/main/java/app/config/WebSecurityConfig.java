@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //TODO Замена числа символьной константой. Заменили магическое непонятное число на понятную константу
-//    public static final String SAULT = "$2a$04$ECwy66BXzNelqaygvhxu1u";
+    public static final String SAULT = "$2a$04$ECwy66BXzNelqaygvhxu1u";
 
     @Autowired
     private DataSource dataSource;
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
-                return BCrypt.hashpw(rawPassword.toString(), "$2a$04$ECwy66BXzNelqaygvhxu1u");
+                return BCrypt.hashpw(rawPassword.toString(), SAULT);
 
             }
 
